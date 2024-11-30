@@ -1,0 +1,43 @@
+body{
+    display: flex;
+    background-color: #f8fcf2;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainContainer{
+    width: 1450px;
+    height: 700px;
+    background-color: papayawhip;
+    background-color: rgb(203, 250, 159);
+    display: flex;
+}
+
+.menubar{
+    
+    width: 1450px;
+    height: 75px;
+    background-color: #79ec8c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 350px;
+}
+
+.menubar ul {
+    display: flex;
+    gap: 60px;
+    list-style: none;       
+}
+
+.menubar ul li a {
+    color: rgb(14, 109, 165);
+    text-decoration: none;
+    font-size: 20px;
+    /* background-color: #f8fcf2;        */
+
+}
+
+.menubar h1{
+     letter-spacing: 2.5px;
+}

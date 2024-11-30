@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Field, Crop, and Vehicle Details</title>
+    <link rel="stylesheet" href="../CSS/field.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Field Details</h1>
+
+      <!-- Field Details Section -->
+      <div class="row field-data align-items-center">
+        <!-- Field Information -->
+        <div class="col-md-6">
+          <h3 class="section-header">Field Information</h3>
+          <p><strong>Field Code     :</strong> <label for="setFieldCode" id="fecode"></label></p>
+          <p><strong>Field Name     :</strong> <label for="setFieldName" id="fename"></p>
+          <p><strong>Field Location :</strong> <label for="setFieldCode" id="felocation"></p>
+          <p><strong>Extent Size    :</strong> <label for="setFieldCode" id="fesize"></p>
+        </div>
+
+        <!-- Field Image -->
+        <div class="col-md-6 text-center" id="fieldImageView">
+            <div class="Image1"></div>
+            <div class="Image2"></div>
+          <!-- <img src="../Assets/field-3521063_640.jpg" alt="Field Image" class="img-fluid rounded border" style="max-height: 250px;" /> -->
+        </div>
+        
+        
+
+        <div class="d-flex justify-content-end mb-3">
+          <button type="button" class="btn btn-primary editFieldDetails" data-bs-toggle="modal" data-bs-target="#fieldModal"> Edit Field Details </button>
+        </div>
+        
+        <!-- Edit Field Button -->
+
+      </div>
+
+
+      <!-- Crop Section -->
+      <h3 class="section-header">Crop Details</h3>
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#cropModal">
+        Add Crop
+      </button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Crop Code</th>
+            <th>Common Name</th>
+            <th>Scientific Name</th>
+            <th>Category</th>
+            <th>Season</th>
+            <th>Image</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody id="cropTableBody"></tbody>
+      </table>
+
+      <!-- Vehicle Section -->
+      <h3 class="section-header">Vehicle Details</h3>
+      <button
+        type="button"
+        class="btn btn-primary mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#vehicleModal"
+      >
+        Add/Edit Vehicle
+      </button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Vehicle Type</th>
+            <th>Vehicle Code</th>
+            <th>Plate Number</th>
+            <th>Category</th>
+            <th>Driver</th>
+          </tr>
+        </thead>
+        <tbody id="vehicleTableBody"></tbody>
+      </table>
+
+      <!-- Staff Section -->
+      <h3 class="section-header">Staff Member Details</h3>
+      <button
+        type="button"
+        class="btn btn-primary mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staffModal"
+      >
+        Add/Edit Staff
+      </button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Staff ID</th>
+            <th>Name</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody id="staffTableBody"></tbody>
+      </table>
+     
+      <!-- Equipment Section -->
+      <h3 class="section-header">Equipment Details</h3>
+      <button
+        type="button"
+        class="btn btn-primary mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#equipmentModal"
+      >
+        Add/Edit Equipment
+      </button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Equipment Type</th>
+            <th>Equipment Code</th>
+            <th>Model</th>
+            <th>Manufacturer</th>
+          </tr>
+        </thead>
+        <tbody id="equipmentTableBody"></tbody>
+      </table>
+    </div>
+    </div>
+
+
+     <!-- Field Modal -->
+    <div class="modal fade" id="fieldModal" tabindex="-1" aria-labelledby="fieldModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h5 class="modal-title" id="fieldModalLabel">Edit Field Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="fieldForm">
+            <!-- Field Form Inputs -->
+            <div class="mb-2">
+              <label for="fieldCode" class="form-label">Field Code</label>
+              <input  type="text"class="form-control" id="fieldCode" readonly/>
+            </div>
+            <div class="mb-2">
+              <label for="fieldName" class="form-label">Field Name</label>
+              <input type="text" class="form-control" id="fieldName" required/>
+            </div>
+
+            <div class="mb-2">
+              <label for="fieldLocation" class="form-label">Field Location</label>
+              <input type="text"  class="form-control" id="fieldLocation" required/>
+            </div>
+            <div class="mb-2">
+              <label for="fieldSize" class="form-label">Extent Size</label>
+              <input type="text" class="form-control" id="fieldSize"  required/>
+            </div>
+
+            <div class="mb-2">
+              <label for="fieldImage" class="form-label">Field Image 1</label>
+              <input type="file" class="form-control" id="fieldImage1" accept="image/*" />
+            </div>
+
+            <div class="mb-2">
+              <label for="fieldImage" class="form-label">Field Image 2</label>
+              <input type="file" class="form-control" id="fieldImage2" accept="image/*" />
+            </div>
+
+            <!-- Modal Buttons -->
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-success" id="saveField">Save </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cancel </button>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <!-- Crop Modal -->
+    <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cropModalLabel">Add/Edit Crop</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+
+            <form id="cropForm">
+              <!-- Crop form inputs -->
+              <div class="mb-2">
+                <label for="cropCode" class="form-label">Crop Code</label>
+                <input type="text" class="form-control" id="cropCode" placeholder="Enter crop code" required/>
+              </div>
+              <div class="mb-2">
+                <label for="cropCommonName" class="form-label">Common Name</label>
+                <input type="text" class="form-control" id="cropCommonName" placeholder="Enter common name" required/>
+              </div>
+              <div class="mb-2">
+                <label for="cropScientificName" class="form-label" >Scientific Name</label>
+                <input type="text" class="form-control" id="cropScientificName" placeholder="Enter scientific name" required/>
+              </div>
+              <div class="mb-2">
+                <label for="cropCategory" class="form-label">Category</label>
+                <select class="form-control" id="cropCategory" required>
+                  <option value="Cereal">Cereal</option>
+                  <option value="Vegetables">Vegetables</option>
+                  <option value="Root Vegetables">Root Vegetables</option>
+                  <option value="Pulse">Pulse</option>
+                  <option value="Fiber">Fiber</option>
+                  <option value="Fruit">Fruit</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label for="cropSeason" class="form-label">Season</label>
+                <input type="text" class="form-control" id="cropSeason" placeholder="Enter season" required />
+              </div>
+              <div class="mb-2">
+                <label for="cropImage" class="form-label">Crop Image</label>
+                <input type="file" class="form-control" id="cropImage" accept="image/*" />
+              </div>
+
+              <!-- More crop fields here -->
+              <button type="button" class="btn btn-success" id="addCrop" >Save</button>
+              <!-- <button type="button" class="btn btn-success">Update</button>
+              <button type="button" class="btn btn-success">remove</button> -->
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Edited Crop Modal -->
+    <div class="modal fade" id="editCropModal" tabindex="-1" aria-labelledby="editCropModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editCropModalLabel">Edit Crop Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editCropForm">
+              <div class="mb-3">
+                <label for="cropCode" class="form-label">Crop Code</label>
+                <input type="text" class="form-control" id="editFormcropCode" disabled>
+              </div>
+              <div class="mb-3">
+                <label for="cropCommonName" class="form-label">Common Name</label>
+                <input type="text" class="form-control" id="editFormcropCommonName">
+              </div>
+              <div class="mb-3">
+                <label for="cropScientificName" class="form-label">Scientific Name</label>
+                <input type="text" class="form-control" id="editFormcropScientificName">
+              </div>
+              <div class="mb-3">
+                <label for="cropCategory" class="form-label">Category</label>
+                <input type="text" class="form-control" id="editFormcropCategory">
+              </div>
+              <div class="mb-3">
+                <label for="cropSeason" class="form-label">Season</label>
+                <input type="text" class="form-control" id="editFormcropSeason">
+              </div>
+              <div class="mb-3">
+                <label for="cropImage" class="form-label">Image</label>
+                <input type="file" class="form-control" id="editFormcropImage">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveCropChanges">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Vehicle Modal -->
+    <div
+      class="modal fade"
+      id="vehicleModal"
+      tabindex="-1"
+      aria-labelledby="vehicleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="vehicleModalLabel">Add/Edit Vehicle</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="vehicleForm">
+              <!-- Vehicle form inputs -->
+              <div class="mb-2">
+                <label for="vehicleType" class="form-label">Vehicle Type</label>
+                <select class="form-control" id="vehicleType" required>
+                  <option value="">Select Vehicle Type</option>
+                  <option value="Tractor">Tractor</option>
+                  <option value="Harvester">Harvester</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label for="vehicleCode" class="form-label">Vehicle Code</label>
+                <input type="text" class="form-control" id="vehicleCode" placeholder="Enter vehicle code" required />
+              </div>
+              <!-- More vehicle fields here -->
+              <button type="button" class="btn btn-success" onclick="registerVehicle()">Register</button>
+              <button type="button" class="btn btn-success" onclick="removeVehicle()">Remove</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- Staff Modal -->
+    <div
+      class="modal fade"
+      id="staffModal"
+      tabindex="-1"
+      aria-labelledby="staffModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staffModalLabel">Add/Edit Staff</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="staffForm">
+              <!-- Staff form inputs -->
+              <div class="mb-2">
+                <label for="memberRole" class="form-label">Member Role</label>
+                <select class="form-control" id="memberRole" required>
+                    <option value="">Select Role</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Worker">Worker</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Technician">Technician</option>
+                </select>
+            </div>
+              <!-- Staff ID -->
+              <div class="mb-2">
+                <label for="staffId" class="form-label">Staff ID</label>
+                <input type="text" class="form-control" id="staffId" placeholder="Enter Staff ID" required/>
+            </div>
+
+            <!-- Staff Name -->
+            <div class="mb-2">
+                <label for="staffName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="staffName" placeholder="Enter Name" required/>
+            </div>
+
+            <!-- Staff Contact -->
+            <div class="mb-2">
+                <label for="staffContact" class="form-label">Contact</label>
+                <input type="text" class="form-control" id="staffContact" placeholder="Enter Contact" required />
+            </div>
+    
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-success btn-uniform" onclick="addStaffMember()"> Add Staff </button>
+                <button type="button" class="btn btn-danger btn-uniform" onclick="removeStaffMember()"> Remove </button>
+            </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Equipment Modal -->
+    <div
+      class="modal fade"
+      id="equipmentModal"
+      tabindex="-1"
+      aria-labelledby="equipmentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="equipmentModalLabel">Add/Edit Equipment</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="equipmentForm">
+              <!-- Equipment form inputs -->
+              <div class="mb-2">
+                <label for="equipmentType" class="form-label">Equipment Type</label>
+                <select class="form-control" id="equipmentType" required>
+                  <option value="">Select Equipment Type</option>
+                  <option value="Plow">Plow</option>
+                  <option value="Sprayer">Sprayer</option>
+                  <option value="Seeder">Seeder</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label for="equipmentCode" class="form-label">Equipment ID</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="equipmentCode"
+                  placeholder="Enter equipment code"
+                  required
+                />
+              </div>
+              <div class="mb-2">
+                <label for="equipmentType" class="form-label">Staff ID</label>
+                <select class="form-control" id="equipmentStaffMember" required>
+                  <!-- <option value="">Select Equipment Type</option> -->
+                  <option value="Plow">Plow</option>
+                  <option value="Sprayer">Sprayer</option>
+                  <option value="Seeder">Seeder</option>
+                </select>
+              </div>
+
+              <div class="d-flex gap-2">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  onclick="addEquipment()"
+                >
+                  Add Equipment
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  onclick="removeEquipment()"
+                >
+                  Remove
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="module" src="../Controller/fieldController.js"></script>
+  </body>
+</html>

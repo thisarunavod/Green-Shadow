@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-header {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .field-data {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+
+  .form-control {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .crop-section,
+  .vehicle-section, .staff-section {
+    margin-top: 30px;
+  }
+
+  .btn-uniform {
+    width: 90px; /* Set a fixed width */
+    height: 35px; /* Set a fixed height */
+    font-size: 12px; /* Consistent font size */
+  }
+
+  .btn-uniform-crop {
+    width: 100px; /* Set a fixed width */
+    height: 35px; /* Set a fixed height */
+    font-size: 12px; /* Consistent font size */
+  }
+
+
+  .editFieldDetails{
+    margin-right: 300px;
+  }
+  
+
+#fecode,#fename,#felocation,#fesize {
+  /* gap: 250px; */
+  margin-left: 25px;
+  font-size: 21px;
+  font-weight: 900;
+  color: rgb(10, 90, 10);
+}
+
+#fieldImageView{
+  
+  display: flex;
+  gap: 10px;
+  
+}

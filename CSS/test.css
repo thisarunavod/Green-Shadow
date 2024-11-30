@@ -1,0 +1,183 @@
+/* General Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainContainer {
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    height: 675px;
+    background-color: rgb(203, 250, 159);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.detailsForm {
+    border-radius: 15px;
+    width: 475px;
+    height: 600px;
+    background-color: #73f0842f;
+    margin-left: 25px;
+    margin-top: 50px;
+    flex: 1 1 475px;
+}
+
+.fieldTable {
+    border-radius: 15px;
+    width: 900px;
+    height: 600px;
+    background-color: #0766142f;
+    margin-left: 25px;
+    margin-top: 50px;
+    flex: 1 1 900px;
+}
+
+/* Form Inputs */
+form {
+    margin-top: 30px;
+}
+
+#fieldName,
+#fieldCode,
+#fieldImage1,
+#fieldImage2,
+#extentSize,
+#fieldLocation {
+    width: 100%;  /* Allow inputs to take full width */
+}
+
+.mb-3 {
+    margin-left: 25px;
+}
+
+form button {
+    margin-left: 25px;
+}
+
+/* Field View */
+.fieldView {
+    width: 100%;
+    height: 675px;
+    display: flex;
+    background-color: papayawhip;
+    background-color: rgb(203, 250, 159);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.fieldDetails {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 600px;
+    background-color: papayawhip;
+    margin-left: 25px;
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.imgView {
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+}
+
+.detailsView {
+    width: 700px;
+    height: 300px;
+    background-color: #fff;
+}
+
+/* Media Queries for Smaller Screens */
+
+/* For Tablets and Smaller Screens */
+@media (max-width: 1024px) {
+    .mainContainer {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .detailsForm,
+    .fieldTable {
+        width: 100%;
+        max-width: 500px;
+        margin: 10px 0;
+    }
+
+    .fieldView {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .fieldDetails {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .imgView,
+    .detailsView {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    #fieldName,
+    #fieldCode,
+    #fieldImage1,
+    #fieldImage2,
+    #extentSize,
+    #fieldLocation {
+        width: 100%;  /* Allow inputs to take full width */
+    }
+
+    form button {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* For Mobile Devices */
+@media (max-width: 768px) {
+    .mainContainer {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .detailsForm,
+    .fieldTable {
+        width: 90%;
+        margin: 10px 0;
+        height: auto;
+    }
+
+    .fieldView {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .fieldDetails {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .imgView,
+    .detailsView {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    form button {
+        margin-left: 0;
+        width: 100%;
+    }
+}
