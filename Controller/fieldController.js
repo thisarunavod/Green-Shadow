@@ -52,9 +52,6 @@ $(document).ready(function() {
 function base64ToFile(base64String, filename) {
   // Decode the base64 string
 
-    // Log the base64 string to debug
-    console.log("Base64 String: ", base64String);
-
     // Check if the base64 string has the correct format
     if (!base64String.startsWith('data:image/jpeg;base64,')) {
         console.error("Invalid base64 string. It must start with 'data:image/jpeg;base64,'.");
@@ -142,6 +139,7 @@ $('#fieldImage2').on('change', function () {
 let selectedCropImage = null
 $('#cropImage').on('change', function () {
   const file = this.files[0]; 
+
   if (file) {
     selectedCropImage = file; 
   } 
@@ -150,7 +148,8 @@ $('#cropImage').on('change', function () {
 $('#editFormcropImage').on('change', function () {
   const file = this.files[0]; 
   if (file) {
-    selectedCropImage = file; 
+    selectedCropImage = file;
+    console.log(selectedCropImage) 
   } 
 });
 
@@ -175,7 +174,6 @@ $('#addCrop').click(function () {
     
     saveCrop(cropFormData)
 
-    
     // const tableBody = document.getElementById("cropTableBody");
     // const row = `
     //     <tr>
@@ -213,7 +211,7 @@ $('#addCrop').click(function () {
     // tableBody.insertAdjacentHTML("beforeend", row);
     // document.getElementById("vehicleForm").reset();
   // }
-
+let ci = null; 
 let selectedRow  = null;
 $(document).on("click", ".view-btn", function () {
     
@@ -225,6 +223,8 @@ $(document).on("click", ".view-btn", function () {
     const cropCategory = row.find("td:nth-child(4)").text();
     const cropSeason = row.find("td:nth-child(5)").text();
     const cropImage = row.find('img').attr('src')
+    ci = cropImage
+    
     selectedCropImage = base64ToFile(cropImage,"image3.jpg") 
     
     // console.log(selectedCropImage)
@@ -238,6 +238,7 @@ $(document).on("click", ".view-btn", function () {
 
     // Show the modal
     $("#editCropModal").modal("show");
+
 });
 
 $('#saveCropChanges').click( function(){
@@ -284,7 +285,10 @@ function setValuesCropTable(crop) {
   selectedRow.find("td:nth-child(3)").text(crop.cropScientificName);
   selectedRow.find("td:nth-child(4)").text(crop.cropCategory);
   selectedRow.find("td:nth-child(5)").text(crop.cropSeason);
-
+  
+  const imgElement = `<img src="${ ci }" width="100" height="50"></img>`;
+  selectedRow.find("td:nth-child(6)").html(imgElement); // Replace image
+  
 }
 
 
