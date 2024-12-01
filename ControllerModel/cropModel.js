@@ -1,7 +1,6 @@
 
 
 export function saveCrop(crop){
-    console.log(crop.get('fieldCode'));
     const http = new XMLHttpRequest();
     http.onreadystatechange = () => {
       if (http.readyState === 4) {
@@ -24,7 +23,7 @@ export function saveCrop(crop){
 }
 
 
-export function getAllCropDetails(){
+export function getAllCropDetails(fieldCode){
     const http = new XMLHttpRequest();
     http.onreadystatechange = () => {
       if (http.readyState === 4) {
@@ -51,6 +50,52 @@ export function getAllCropDetails(){
         }
       }
     };
-    http.open( "GET", "http://localhost:8080/greenShadow/api/v1/crop/getAllCrops", true );
+    http.open( "GET", "http://localhost:8080/greenShadow/api/v1/crop/getAllCropsByField/"+fieldCode, true );
     http.send();
 }
+
+
+
+export function updateCrop(cropFormData , cropCode){
+    return new Promise((resolve,reject)=>{
+      const http = new XMLHttpRequest();
+      http.onreadystatechange = () => {
+        if (http.readyState === 4) {
+          if (http.status === 204) {
+            alert("Crop Details Updated Successfully");
+            resolve();          
+          } else {
+            console.error("Failed");
+            console.error("Status", http.status);
+            console.error("Ready State", http.readyState);
+            reject(new Error("Failed to update crop with status: " + http.status));
+          }
+        }
+      };
+  
+      http.open("PATCH", "http://localhost:8080/greenShadow/api/v1/crop/"+cropCode, true);
+      http.send(cropFormData);
+    })
+}
+
+export function deleteCrop(cropCode) {
+  return new Promise((resolve, reject) => {
+    const http = new XMLHttpRequest();
+    http.onreadystatechange = () => {
+      if (http.readyState === 4) {
+        if (http.status === 204) {
+          alert("Crop Removed Successfully");
+          resolve(); // Resolve the promise on success
+        } else {
+          console.error("Failed");
+          console.error("Status", http.status);
+          console.error("Ready State", http.readyState);
+          reject(new Error("Failed to delete crop with status: " + http.status)); // Reject the promise on failure
+        }
+      }
+    };
+    http.open("DELETE", "http://localhost:8080/greenShadow/api/v1/crop/" + cropCode, true);
+    http.send();
+  });
+}
+

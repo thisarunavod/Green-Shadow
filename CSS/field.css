@@ -82,3 +82,9 @@ body {
   gap: 10px;
   
 }
+
+
+#removeCrop{
+  border-color:rgb(224, 95, 95);;
+  background-color: rgb(224, 95, 95);
+}

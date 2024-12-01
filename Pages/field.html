@@ -49,7 +49,7 @@
       <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#cropModal">
         Add Crop
       </button>
-      <table class="table table-striped">
+      <table class="table table-striped" id="cropTable">
         <thead>
           <tr>
             <th>Crop Code</th>
@@ -188,7 +188,6 @@
     </div>
     </div>
 
-
     <!-- Crop Modal -->
     <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -269,7 +268,14 @@
               </div>
               <div class="mb-3">
                 <label for="cropCategory" class="form-label">Category</label>
-                <input type="text" class="form-control" id="editFormcropCategory">
+                <select class="form-control" id="editFormcropCategory" required>
+                  <option value="Cereal">Cereal</option>
+                  <option value="Vegetables">Vegetables</option>
+                  <option value="Root Vegetables">Root Vegetables</option>
+                  <option value="Pulse">Pulse</option>
+                  <option value="Fiber">Fiber</option>
+                  <option value="Fruit">Fruit</option>
+                </select>
               </div>
               <div class="mb-3">
                 <label for="cropSeason" class="form-label">Season</label>
@@ -282,8 +288,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="saveCropChanges">Save Changes</button>
+            <button type="button" class="btn btn-primary" id="removeCrop">Remove Crop</button>
           </div>
         </div>
       </div>
@@ -467,6 +473,9 @@
         </div>
       </div>
     </div>
+
+
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="module" src="../Controller/fieldController.js"></script>
   </body>

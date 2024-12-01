@@ -1,6 +1,7 @@
 
 import { getFieldData,updateField } from "../ControllerModel/fm.js";
-import { saveCrop ,getAllCropDetails } from "../ControllerModel/cropModel.js";
+import { saveCrop ,getAllCropDetails , updateCrop, deleteCrop } from "../ControllerModel/cropModel.js";
+
 const urlParams = new URLSearchParams(window.location.search);;
 const fieldCode = urlParams.get('fieldCode');;
 
@@ -42,7 +43,8 @@ $(document).ready(function() {
 
         
    });
-   getAllCropDetails()
+
+   getAllCropDetails(fieldCode)
 
 });
 
@@ -173,11 +175,7 @@ $('#addCrop').click(function () {
     
     saveCrop(cropFormData)
 
-    // let cropImageSrc = "";
-    // if (cropImageInput.files.length > 0) {
-    //   cropImageSrc = URL.createObjectURL(cropImageInput.files[0]);
-    // }
-
+    
     // const tableBody = document.getElementById("cropTableBody");
     // const row = `
     //     <tr>
@@ -191,7 +189,7 @@ $('#addCrop').click(function () {
     // `;
     // tableBody.insertAdjacentHTML("beforeend", row);
     // document.getElementById("cropForm").reset();
-  });
+});
   
 
   // function addVehicle() {
@@ -216,10 +214,11 @@ $('#addCrop').click(function () {
     // document.getElementById("vehicleForm").reset();
   // }
 
-
-  $(document).on("click", ".view-btn", function () {
+let selectedRow  = null;
+$(document).on("click", ".view-btn", function () {
     
     const row = $(this).closest("tr");
+    selectedRow = row; 
     const cropCode = row.find("#crCode").text();
     const cropCommonName = row.find("td:nth-child(2)").text();
     const cropScientificName = row.find("td:nth-child(3)").text();
@@ -228,7 +227,7 @@ $('#addCrop').click(function () {
     const cropImage = row.find('img').attr('src')
     selectedCropImage = base64ToFile(cropImage,"image3.jpg") 
     
-    console.log(selectedCropImage)
+    // console.log(selectedCropImage)
     
     $("#editFormcropCode").val(cropCode);
     $("#editFormcropCommonName").val(cropCommonName);
@@ -242,6 +241,61 @@ $('#addCrop').click(function () {
 });
 
 $('#saveCropChanges').click( function(){
+
+    const cropCode = $('#editFormcropCode').val();
+    const cropCommonName = $('#editFormcropCommonName').val() 
+    const cropScientificName =$('#editFormcropScientificName').val()
+    const cropCategory = $('#editFormcropCategory').val()
+    const cropSeason = $('#editFormcropSeason').val()
+
+    const cropObj = {
+      'cropCode':cropCode,
+      'cropCommonName':cropCommonName,
+      'cropScientificName':cropScientificName,
+      'cropCategory':cropCategory,
+      'cropSeason':cropSeason
+    }
+
+    const cropFormData = new FormData()
+    cropFormData.append('cropCommonName', cropCommonName)
+    cropFormData.append('cropScientificName',cropScientificName)
+    cropFormData.append('cropCategory',cropCategory)
+    cropFormData.append('cropSeason',cropSeason)
+    cropFormData.append('filedCode',fieldCode)
+    cropFormData.append('cropImage',selectedCropImage)
+
     
+    updateCrop(cropFormData,cropCode)
+    .then(()=>{
+      setValuesCropTable(cropObj)
+      $("#editCropModal").modal("hide");
+    }).catch((error) => { 
+      console.error("Error:", error);
+    }); 
+    
+    
+
 });
 
+function setValuesCropTable(crop) {
+
+  selectedRow.find("#crCode").text(crop.cropCode)
+  selectedRow.find("td:nth-child(2)").text(crop.cropCommonName);
+  selectedRow.find("td:nth-child(3)").text(crop.cropScientificName);
+  selectedRow.find("td:nth-child(4)").text(crop.cropCategory);
+  selectedRow.find("td:nth-child(5)").text(crop.cropSeason);
+
+}
+
+
+$('#removeCrop').click(function(){
+  
+  deleteCrop($('#editFormcropCode').val())
+  .then(() => {
+    selectedRow.remove();
+    $("#editCropModal").modal("hide");
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  }); 
+});
