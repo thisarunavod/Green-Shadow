@@ -16,7 +16,10 @@ $(document).ready(function(){
 
     // getAllStaffMembers();
 });
-
+addMember
+$("#addMember").click(function(){
+    resetForms();
+});
 
 
 $('#saveStaffBtn').click( function(){
@@ -67,7 +70,7 @@ function updateTableWithUpdateProcess(member){
 
 function updateTableWithSaving(obj){
     $("#staffTableBody").append(
-        `<tr class="cropDetails">
+        `<tr class="staffDetails">
             <td id = "sId">${obj.id}</td>
             <td>${obj.firstName}</td>
             <td>${obj.designation}</td>
@@ -114,6 +117,20 @@ $(document).on("click", ".view-btn", function () {
 
 
 //chooseDesignation
+$('#chooseDesignation').on('change', function () {
+    var designationType = $('#chooseDesignation').val()  
+    console.log(designationType)
+    if (designationType === 'ALL') { $('#staffTableBody tr td').show()}
+    // else{ $('#staffTableBody >tr').hide() }
+    $("#staffTableBody tr").each(function() {
+        var desig = $(this).find("td").eq(2).text(); 
+        if( desig != designationType && designationType != 'ALL'){
+            $(this).find("td").hide()
+        } else {
+            $(this).find("td").show()
+        }
+    });
+});
 
 
 $(document).on("click", "#addMember", function () {

@@ -235,7 +235,6 @@ $(document).on("click", ".view-btn", function () {
     $("#editFormcropCategory").val(cropCategory);
     $("#editFormcropSeason").val(cropSeason);
     
-
     // Show the modal
     $("#editCropModal").modal("show");
 
