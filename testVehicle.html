@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Management - Green Shadow</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+  }
+  .table-container {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .table-title {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #006400;
+  }
+  th {
+    background-color: #006400;
+    color: white;
+  }
+  .btn-primary {
+    background-color: #006400;
+    border: none;
+  }
+  .btn-primary:hover {
+    background-color: #004d00;
+  }
+  .modal-dialog {
+    max-width: 900px; /* Increased modal width */
+  }
+  .modal-content {
+    padding: 20px;
+  }
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #006400;
+  }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="table-container">
+      <h2 class="table-title">Vehicle List</h2>
+      <button class="btn btn-primary mb-3" id="addVehicle" data-bs-toggle="modal" data-bs-target="#vehicleModal">Add New Vehicle</button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Vehicle ID</th>
+            <th>Type</th>
+            <th>Model</th>
+            <th>Manufacturer</th>
+            <th>Registration No.</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="vehicleTableBody">
+          <!-- Rows will be added dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal for Vehicle Form -->
+  <div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="vehicleModalLabel">Add/Edit Vehicle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="vehicleForm">
+            <!-- Vehicle Details Section -->
+            <div class="section-title">Vehicle Details</div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="vehicleCode">Vehicle Code</label>
+                <input type="text" class="form-control" id="vehicleCode" placeholder="Vehicle Code" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="licensePlateNumber">License Plate Number</label>
+                <input type="text" class="form-control" id="licensePlateNumber" placeholder="License Plate Number" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="category">Category</label>
+                <select class="form-select" id="category" required>
+                  <option value="">Select Category</option>
+                  <option value="Truck">Truck</option>
+                  <option value="Car">Car</option>
+                  <option value="Van">Van</option>
+                  <option value="Bike">Bike</option>
+                  <option value="Tractor">Tractor</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="fuelType">Fuel Type</label>
+                <select class="form-select" id="fuelType" required>
+                  <option value="">Select Fuel Type</option>
+                  <option value="Petrol">Petrol</option>
+                  <option value="Diesel">Diesel</option>
+                  <option value="Electric">Electric</option>
+                  <option value="Hybrid">Hybrid</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="status">Status</label>
+                <select class="form-select" id="status" required>
+                  <option value="">Select Status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                  <option value="Under Maintenance">Under Maintenance</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="staffId">Staff ID</label>
+                <input type="text" class="form-control" id="staffId" placeholder="Assigned Staff ID">
+              </div>
+              <div class="col-12 mb-3">
+                <label for="remarks">Remarks</label>
+                <textarea class="form-control" id="remarks" placeholder="Enter any remarks here" rows="3"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="saveVehicleBtn">Save Vehicle</button>
+          <button type="button" class="btn btn-primary" id="updateVehicleBtn">Update</button>
+          <button type="button" class="btn btn-primary" id="removeVehicleBtn">Remove</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="../Controller/vehicleController.js"></script>
+</body>
+</html>
