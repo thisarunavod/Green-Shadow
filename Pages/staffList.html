@@ -51,12 +51,22 @@
   <div class="container mt-4">
     <div class="table-container">
       <h2 class="table-title">Staff Members</h2>
-      <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#staffModal">Add New Staff</button>
+      <button class="btn btn-primary mb-3" id="addMember" data-bs-toggle="modal" data-bs-target="#staffModal">Add New Staff</button>
       <select class="form-select" id="chooseDesignation" required>
-        <option value="">Select Role</option>
+        <option value="Manager">ALL</option>
         <option value="Manager">Manager</option>
-        <option value="Field Worker">Field Worker</option>
-        <option value="Driver">Driver</option>
+        <option value="Senior_Assistant_Manager">Senior_Assistant_Manager</option>
+        <option value="Senior_Assistant_Manager">Senior_Assistant_Manager</option>
+        <option value="Assistant_Manager">Assistant_Manager</option>
+        <option value="Admin_and_HR_Staff">Admin_and_HR_Staff</option>
+        <option value="Office_Assistant">Office_Assistant</option>
+        <option value="Senior_Agronomist">Senior_Agronomist</option>
+        <option value="Agronomist">Agronomist</option>
+        <option value="Soil_scientist">Soil_scientist</option>
+        <option value="Senior_Technician">Senior_Technician</option>
+        <option value="Technician">Technician</option>
+        <option value="Supervisors">Supervisors</option>
+        <option value="Labors">Labors</option>
       </select>
       <table class="table table-striped">
         <thead>
@@ -203,8 +213,10 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="saveStaffBtn">Save Staff</button>
+          <button type="button" class="btn btn-primary" id="updateStaffBtn">Update</button>
+          <button type="button" class="btn btn-primary" id="removeStaffBtn">Remove</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
