@@ -2,10 +2,8 @@
 import { saveField , generateNewFieldCode,getAllFields } from "../ControllerModel/fm.js";
 $(document).ready(function(){
     generateNewFieldCode((code) => {
-        // console.log("Field Code:", code);
-        $("#fieldCode").val(code); // Set the value in the text field
+        $("#fieldCode").val(code); 
     });
-    
     getAllFields();
 });
 

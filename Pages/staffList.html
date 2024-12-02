@@ -52,7 +52,7 @@
     <div class="table-container">
       <h2 class="table-title">Staff Members</h2>
       <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#staffModal">Add New Staff</button>
-      <select class="form-select" id="designation" required>
+      <select class="form-select" id="chooseDesignation" required>
         <option value="">Select Role</option>
         <option value="Manager">Manager</option>
         <option value="Field Worker">Field Worker</option>
@@ -92,7 +92,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="staffId">Staff ID</label>
-                <input type="text" class="form-control" id="staffId" placeholder="E.g., GS001" required>
+                <input type="text" class="form-control" id="staffId" readonly>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="firstName">First Name</label>
@@ -104,7 +104,22 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label for="designation">Designation</label>
-                <input type="text" class="form-control" id="designation" placeholder="Designation" required>
+                <!-- <input type="text" class="form-control" id="designation" placeholder="Designation" required> -->
+                <select class="form-select" id="designation" required>
+                  <option value="Manager">Manager</option>
+                  <option value="Senior_Assistant_Manager">Senior_Assistant_Manager</option>
+                  <option value="Assistant_Manager">Assistant_Manager</option>
+                  <option value="Admin_and_HR_Staff">Admin_and_HR_Staff</option>
+                  <option value="Office_Assistant">Office_Assistant</option>
+                  <option value="Senior_Agronomist">Senior_Agronomist</option>
+                  <option value="Agronomist">Agronomist</option>
+                  <option value="Soil_scientist">Soil_scientist</option>
+                  <option value="Senior_Technician">Senior_Technician</option>
+                  <option value="Technician">Technician</option>
+                  <option value="Supervisors">Supervisors</option>
+                  <option value="Labors">Labors</option>
+                </select>
+                
               </div>
               <div class="col-md-6 mb-3">
                 <label for="gender">Gender</label>
@@ -170,11 +185,10 @@
                 <label for="role">Role</label>
                 <select class="form-select" id="role" required>
                   <option value="">Select Role</option>
-                  <option value="ADMIN">ADMIN</option>
+                  <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
                   <option value="MANAGER">MANAGER</option>
                   <option value="SCIENTIST">SCIENTIST</option>
-                  <option value="DRIVER">DRIVER</option>
-                  <option value="LABOR">LABOR</option>
+                  <option value="OTHER">OTHER</option>
                 </select>
               </div>
               <!-- <div class="col-md-6 mb-3">
