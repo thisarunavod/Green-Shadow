@@ -115,3 +115,28 @@ export function getAllEquipment(callBack){
     http.open( "GET", "http://localhost:8080/greenShadow/api/v1/equipment/allEquipments", true );
     http.send();
 }
+
+export function getEquipment(equipmentId , setValues){
+    return new Promise((resolve,reject)=>{
+        const http = new XMLHttpRequest();
+        http.onreadystatechange = () => {
+          if (http.readyState === 4) {
+            if (http.status === 200) {
+                const equipment = JSON.parse(http.responseText)
+                console.log(equipment)
+                setValues(equipment)
+                resolve();
+            } else {
+              console.error("Failed");
+              console.error("Status", http.status);
+              console.error("Ready State", http.readyState);
+              reject(new Error("Failed to update crop with status: " + http.status));
+            }
+          }
+        };
+    
+        http.open("GET", "http://localhost:8080/greenShadow/api/v1/equipment/"+equipmentId, true);
+        http.setRequestHeader("Content-Type","application/json");
+        http.send();
+    });
+}

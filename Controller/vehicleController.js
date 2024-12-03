@@ -41,6 +41,7 @@ $('#saveVehicleBtn').click(function (){
 });
 
 function updateTableWithSave(vehicle){
+    
     $("#vehicleTableBody").append(
         `<tr class="vehicleDetails">
             <td id = "vCode">${vehicle.vehicleCode}</td>

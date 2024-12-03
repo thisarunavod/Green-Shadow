@@ -1,4 +1,4 @@
-import { generateNewEquipmentId,getAllEquipment,saveEquipment,loadAvailableStaffIds,loadAvailableFieldCodes } from "../ControllerModel/equipmentModel.js"
+import { generateNewEquipmentId,getAllEquipment,getEquipment,saveEquipment,loadAvailableStaffIds,loadAvailableFieldCodes } from "../ControllerModel/equipmentModel.js"
 
 
 $(document).ready(function(){
@@ -33,7 +33,10 @@ $('#saveEquipmentBtn').click(function (){
     
 });
 
+
 function updateTableWithSaveEquipment(equipment){
+    if(equipment.staffId === null) equipment.staffId ="N/A"
+    if(equipment.fieldCode === null) equipment.fieldCode ="N/A"
     $("#equipmentTableBody").append(
         `<tr class="equipmentDetails">
             <td id = "eId">${equipment.equipmentId}</td>
@@ -48,6 +51,27 @@ function updateTableWithSaveEquipment(equipment){
     );
 }
 
+let selectedRow = null;
+$(document).on("click", ".view-btn", function () {
+    
+    selectedRow = $(this).closest("tr"); 
+    $("#equipmentModal").modal("show");
+    $("#saveEquipmentBtn").hide()
+    $("#updateEquipmentBtn").show()
+    $("#removeEquipmentBtn").show()
+    loadAvailableFieldCodes();
+    loadAvailableStaffIds();
+    const equipmentId = selectedRow.find("#eId").text();  
+    getEquipment(equipmentId,(equipment)=>{
+        $('#equipmentId').val(equipment.equipmentId)
+        $('#equipmentName').val(equipment.name),
+        $('#equipmentType').val(equipment.type),
+        $('#equipmentStatus').val(equipment.status),
+        $('#assignedStaff').val(equipment.staffId),
+        $('#assignedField').val(equipment.fieldCode)
+    });
+    
+});
 function resetForms(){
     generateNewEquipmentId((id) => {
         $("#equipmentId").val(id); 
