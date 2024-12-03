@@ -44,7 +44,7 @@ export function saveStaffMember(staffObj){
     });
 }
 
-export function getAllStaffMembers(){
+export function getAllStaffMembers(callBack){
   const http = new XMLHttpRequest();
   http.onreadystatechange = () => {
     if (http.readyState === 4) {
@@ -63,6 +63,8 @@ export function getAllStaffMembers(){
               </tr>`
           );
         });
+        callBack(staffList)
+        
       } else {
         console.error("Failed");
         console.error("Status", http.status);

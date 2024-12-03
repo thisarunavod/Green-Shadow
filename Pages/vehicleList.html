@@ -44,6 +44,7 @@
     margin-bottom: 10px;
     color: #006400;
   }
+  .vehicleDetails{}
   </style>
 </head>
 <body>
@@ -53,11 +54,11 @@
       <button class="btn btn-primary mb-3" id="addVehicle" data-bs-toggle="modal" data-bs-target="#vehicleModal">Add New Vehicle</button>
       <select class="form-select" id="chooseCategory" required>
         <option value="ALL">ALL</option>
-        <option value="VAN">VAN</option>
-        <option value="CAR">CAR</option>
-        <option value="TRUCK">TRUCK</option>
-        <option value="DOZER">DOZER</option>
-        <option value="TRACTOR">TRACTOR</option>
+        <option value="Van">VAN</option>
+        <option value="Car">CAR</option>
+        <option value="Truck">TRUCK</option>
+        <option value="Dozer">DOZER</option>
+        <option value="Tractor">TRACTOR</option>
       </select>
       <table class="table table-striped">
         <thead>
@@ -120,17 +121,21 @@
                 </select>
               </div>
               <div class="col-md-6 mb-3">
+                <label for="staffId">Staff ID</label>
+                <!-- <input type="text" class="form-control" id="staffId" placeholder="Assigned Staff ID"> -->
+                <select class="form-select" id="loadStaffId" required>
+                  <option value="NOT_ASSIGNED">Not Assigned</option>
+                </select>
+              </div>                
+
+              <div class="col-md-6 mb-3">
                 <label for="status">Status</label>
                 <select class="form-select" id="status" required>
-                  <option value="">Select Status</option>
-                  <option value="Active">Active</option>
-                  <option value="Inactive">Inactive</option>
-                  <option value="Under Maintenance">Under Maintenance</option>
+                  <option id="optActive" value="ACTIVE">Active</option>
+                  <option id="optInService" value="IN_SERVICE">In service</option>
+                  <option id="optUnderMaintenance" value="UNDER_MAINTENANCE">Under Maintenance</option>
+                  <!-- <option id="optOutOfService" value="OUT_OF_SERVICE">Out of Service</option> -->
                 </select>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="staffId">Staff ID</label>
-                <input type="text" class="form-control" id="staffId" placeholder="Assigned Staff ID">
               </div>
               <div class="col-12 mb-3">
                 <label for="remarks">Remarks</label>

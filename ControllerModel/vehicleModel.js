@@ -1,3 +1,6 @@
+import { getAllStaffMembers} from "../ControllerModel/staffModel.js"
+
+
 export function generateNewVehicleCode(callback) {
     const http = new XMLHttpRequest();
     http.onreadystatechange = () => {
@@ -44,24 +47,26 @@ export function saveVehicle(vehicleObj){
     });
 }
   
-export function getAllStaffMembers(){
+export function getAllVehicles(){
     const http = new XMLHttpRequest();
     http.onreadystatechange = () => {
         if (http.readyState === 4) {
         if (http.status === 200) {
             const vehicleList = JSON.parse(http.responseText);
-            vehicleList.forEach((member) => {
-                // $("#staffTableBody").append(
-                //     `<tr class="cropDetails">
-                //         <td id = "sId">${member.id}</td>
-                //         <td>${member.firstName}</td>
-                //         <td>${member.designation}</td>
-                //         <td>${member.gender}</td>
-                //         <td>${member.joinedDate}</td>
-                //         <td>${member.contactNo}<br>${member.email}</td>
-                //         <td> <button class="btn btn-success view-btn">Edit</button></td>
-                //     </tr>`
-                // );
+            vehicleList.forEach((vehicle) => {
+                var staffId = vehicle.staffId;
+                if( staffId === null) {staffId = 'NOT_ASSIGNED';}
+                $("#vehicleTableBody").append(
+                    `<tr class="vehicleDetails">
+                        <td id = "vCode">${vehicle.vehicleCode}</td>
+                        <td>${vehicle.licensePlateNumber}</td>
+                        <td>${vehicle.category}</td>
+                        <td>${vehicle.fuelType}</td>
+                        <td>${vehicle.status}</td>
+                        <td>${staffId}</td>
+                        <td> <button class="btn btn-success view-btn">Edit</button></td>
+                    </tr>`
+                );
             });
         } else {
             console.error("Failed");
@@ -100,7 +105,7 @@ export function getAllStaffMembers(){
     });
   }
   
-  export function updateStaffMember(vehicleObj){
+  export function updateVehicle(vehicleObj){
       console.log(vehicleObj)
       const vehicleObjJSON = JSON.stringify(vehicleObj)
       return new Promise((resolve,reject)=>{
@@ -124,24 +129,39 @@ export function getAllStaffMembers(){
       });
   }
   
-  
-  export function deleteStaffMember(id){
-    // console.log(id)
-    // return new Promise((resolve, reject) => {
-    //   const http = new XMLHttpRequest();
-    //   http.onreadystatechange = () => {
-    //     if (http.readyState === 4) {
-    //       if (http.status === 204) {
-    //         resolve(); // Resolve the promise on success
-    //       } else {
-    //         console.error("Failed");
-    //         console.error("Status", http.status);
-    //         console.error("Ready State", http.readyState);
-    //         reject(new Error("Failed to delete Staff member with status: " + http.status)); // Reject the promise on failure
-    //       }
-    //     }
-    //   };
-    //   http.open("DELETE", "http://localhost:8080/greenShadow/api/v1/staff/"+id, true);
-    //   http.send();
-    // });
+  export function deleteVehicle(vehicleCode){
+
+    return new Promise((resolve, reject) => {
+      const http = new XMLHttpRequest();
+      http.onreadystatechange = () => {
+        if (http.readyState === 4) {
+          if (http.status === 204) {
+            resolve(); // Resolve the promise on success
+          } else {
+            console.error("Failed");
+            console.error("Status", http.status);
+            console.error("Ready State", http.readyState);
+            reject(new Error("Failed to delete Staff member with status: " + http.status)); // Reject the promise on failure
+          }
+        }
+      };
+      http.open("DELETE", "http://localhost:8080/greenShadow/api/v1/vehicle/"+vehicleCode, true);
+      http.send();
+    });
   } 
+
+
+
+  export function loadStaffIds(){
+       
+      getAllStaffMembers((staffList) => {
+          staffList.forEach((staff)=>{
+            $('#loadStaffId').append(
+              ` <option value="${staff.id}"> (${staff.id +")-->"+staff.firstName+"-->"+staff.designation}</option>
+              `
+            );
+          });
+       });
+
+  }       
+  // }<td>${staffId}</td>

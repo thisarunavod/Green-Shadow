@@ -9,14 +9,15 @@ import {
 
 $(document).ready(function(){
     
-    getAllStaffMembers();
+    getAllStaffMembers((staffList) => {});
+    
     generateNewStaffId((id) => {
         $("#staffId").val(id); 
     });
 
     // getAllStaffMembers();
 });
-addMember
+
 $("#addMember").click(function(){
     resetForms();
 });
@@ -116,12 +117,12 @@ $(document).on("click", ".view-btn", function () {
 
 
 
-//chooseDesignation
+// chooose designTION action
 $('#chooseDesignation').on('change', function () {
     var designationType = $('#chooseDesignation').val()  
-    console.log(designationType)
+    
     if (designationType === 'ALL') { $('#staffTableBody tr td').show()}
-    // else{ $('#staffTableBody >tr').hide() }
+    
     $("#staffTableBody tr").each(function() {
         var desig = $(this).find("td").eq(2).text(); 
         if( desig != designationType && designationType != 'ALL'){
