@@ -4,7 +4,7 @@ $(document).ready(function(){
     generateNewFieldCode((code) => {
         $("#fieldCode").val(code); 
     });
-    getAllFields();
+    getAllFields((fields)=>{});
 });
 
 
@@ -13,10 +13,6 @@ const saveFieldBtn = document.getElementById('saveField');
 const updateFieldBtn = document.getElementById('updateField');
 const tableBody = document.getElementById('fieldTableBody');
 let selectedRow = null;
-
-
-
-
 
 // Save Field
 saveFieldBtn.addEventListener('click', function () {

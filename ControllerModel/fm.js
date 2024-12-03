@@ -65,7 +65,7 @@ export function getFieldData(fieldCode,setFieldValues){
     http.send();
 }
 
-export function getAllFields() {
+export function getAllFields(callBack) {
   const http = new XMLHttpRequest();
   http.onreadystatechange = () => {
     if (http.readyState === 4) {
@@ -85,6 +85,7 @@ export function getAllFields() {
               </tr>`
           );
         });
+        callBack(fields)
       } else {
         console.error("Failed");
         console.error("Status", http.status);
