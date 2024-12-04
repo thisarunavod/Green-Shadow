@@ -43,34 +43,34 @@ export function saveEquipment(equipmentObj){
     });
 }
 
-export function loadAvailableStaffIds(){
-    const http = new XMLHttpRequest();
-    http.onreadystatechange = () => {
-        if (http.readyState === 4) {
-            if (http.status === 200) {
-                const staffList = JSON.parse(http.responseText);
-                staffList.forEach((labor) => {
-                    // var staffId = labor.staffId;
-                    $('#assignedStaff').append(
-                        ` <option value="${labor.id}"> (${labor.id +")-->"+labor.firstName+"-->"+labor.designation}</option>
-                        `
-                    );      
-                });
-            } else {
-                console.error("Failed");
-                console.error("Status", http.status);
-                console.error("Ready State", http.readyState);
-                console.error("Failed with Status:", http.status);
-            }
-        }
-    };
-    http.open( "GET", "http://localhost:8080/greenShadow/api/v1/equipment/allAvailableLabors", true );
-    http.send();
+// export function loadAvailableStaffIds(){
+//     const http = new XMLHttpRequest();
+//     http.onreadystatechange = () => {
+//         if (http.readyState === 4) {
+//             if (http.status === 200) {
+//                 const staffList = JSON.parse(http.responseText);
+//                 staffList.forEach((labor) => {
+//                     // var staffId = labor.staffId;
+//                     $('#assignedStaff').append(
+//                         ` <option value="${labor.id}"> (${labor.id +")-->"+labor.firstName+"-->"+labor.designation}</option>
+//                         `
+//                     );      
+//                 });
+//             } else {
+//                 console.error("Failed");
+//                 console.error("Status", http.status);
+//                 console.error("Ready State", http.readyState);
+//                 console.error("Failed with Status:", http.status);
+//             }
+//         }
+//     };
+//     http.open( "GET", "http://localhost:8080/greenShadow/api/v1/equipment/allAvailableLabors", true );
+//     http.send();
     
-}
+// }
 
 export function loadAvailableFieldCodes(){
-    console.log("hello thisaru");
+    
     getAllFields((fieldList) => {
         fieldList.forEach((field)=>{
             $("#assignedField").append( 
@@ -91,7 +91,7 @@ export function getAllEquipment(callBack){
             if(equipment.staffId === null) equipment.staffId ="N/A"
             if(equipment.fieldCode === null) equipment.fieldCode ="N/A"
             $("#equipmentTableBody").append(
-                `<tr class="cropDetails">
+                `<tr class="equipmentDetails">
                     <td id = "eId">${equipment.equipmentId}</td>
                     <td>${equipment.name}</td>
                     <td>${equipment.type}</td>
@@ -138,5 +138,31 @@ export function getEquipment(equipmentId , setValues){
         http.open("GET", "http://localhost:8080/greenShadow/api/v1/equipment/"+equipmentId, true);
         http.setRequestHeader("Content-Type","application/json");
         http.send();
+    });
+}
+
+
+
+export function updateEquipment(equipment){
+    console.log(equipment)
+    const equipmentObjJSON = JSON.stringify(equipment)
+    return new Promise((resolve,reject)=>{
+        const http = new XMLHttpRequest();
+        http.onreadystatechange = () => {
+          if (http.readyState === 4) {
+            if (http.status === 204) {
+                resolve();
+            } else {
+              console.error("Failed");
+              console.error("Status", http.status);
+              console.error("Ready State", http.readyState);
+              reject(new Error("Failed to update Staff Member with status: " + http.status));
+            }
+          }
+        };
+    
+        http.open("PATCH", "http://localhost:8080/greenShadow/api/v1/equipment/"+equipment.equipmentId, true);
+        http.setRequestHeader("Content-Type","application/json");
+        http.send(equipmentObjJSON);
     });
 }

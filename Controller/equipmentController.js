@@ -1,22 +1,27 @@
-import { generateNewEquipmentId,getAllEquipment,getEquipment,saveEquipment,loadAvailableStaffIds,loadAvailableFieldCodes } from "../ControllerModel/equipmentModel.js"
+import { generateNewEquipmentId,getAllEquipment,getEquipment,saveEquipment,updateEquipment,loadAvailableFieldCodes } from "../ControllerModel/equipmentModel.js"
 
 
 $(document).ready(function(){
-    // loadStaffIds();
+    
     generateNewEquipmentId((equipmentId) => {
         $("#equipmentId").val(equipmentId); 
     });
     
     getAllEquipment((equipmentList)=>{});
-    loadAvailableStaffIds();
+    // loadAvailableStaffIds();
     loadAvailableFieldCodes();
 });
 
 
 $("#addEquipment").click(function(){
+    
     resetForms();
-    $("#updateEquipmentBtn").hide()
-    $("#removeEquipmentBtn").hide()
+    // loadAvailableFieldCodes();
+    $("#saveEquipmentBtn").show();
+    $("#updateEquipmentBtn").hide();
+    $("#removeEquipmentBtn").hide();
+    $("#currentField").hide();
+
 });
 
 
@@ -25,7 +30,7 @@ $('#saveEquipmentBtn').click(function (){
     const equipment = getEquipmentObject();
     saveEquipment(equipment).then(()=>{
         alert("Vehicle Saved Successfully");
-        updateTableWithSaveEquipment(equipment)
+        updateTableWithSaveEquipment(equipment);
         resetForms();
     }).catch((error) => { 
         console.error("Error:", error);
@@ -33,6 +38,25 @@ $('#saveEquipmentBtn').click(function (){
     
 });
 
+$("#updateEquipmentBtn").click(function(){
+    const equipment = getEquipmentObject();
+    updateEquipment(equipment).then(()=>{
+        alert("Equipoment Updated Successfully");
+        updateEquipmentTableWithUpdateProcess(equipment);
+        $("#equipmentModal").modal("hide");
+    }).catch((error) => { 
+        console.error("Error:", error);
+    });
+});
+
+function updateEquipmentTableWithUpdateProcess(equipment){
+    selectedRow.find("td:nth-child(1)").text(equipment.equipmentId);
+    selectedRow.find("td:nth-child(2)").text(equipment.name);
+    selectedRow.find("td:nth-child(3)").text(equipment.type);
+    selectedRow.find("td:nth-child(4)").text(equipment.status);
+    selectedRow.find("td:nth-child(5)").text(equipment.staffId);
+    selectedRow.find("td:nth-child(6)").text(equipment.fieldCode);
+}
 
 function updateTableWithSaveEquipment(equipment){
     if(equipment.staffId === null) equipment.staffId ="N/A"
@@ -59,15 +83,17 @@ $(document).on("click", ".view-btn", function () {
     $("#saveEquipmentBtn").hide()
     $("#updateEquipmentBtn").show()
     $("#removeEquipmentBtn").show()
-    loadAvailableFieldCodes();
-    loadAvailableStaffIds();
+    $("#currentField").show();
+    // loadAvailableFieldCodes();
+    // loadAvailableStaffIds();
     const equipmentId = selectedRow.find("#eId").text();  
     getEquipment(equipmentId,(equipment)=>{
         $('#equipmentId').val(equipment.equipmentId)
         $('#equipmentName').val(equipment.name),
         $('#equipmentType').val(equipment.type),
+        // if(equipment.status === "")
         $('#equipmentStatus').val(equipment.status),
-        $('#assignedStaff').val(equipment.staffId),
+        // $('#assignedStaff').val(equipment.staffId),
         $('#assignedField').val(equipment.fieldCode)
     });
     
@@ -76,12 +102,12 @@ function resetForms(){
     generateNewEquipmentId((id) => {
         $("#equipmentId").val(id); 
     });
-    $('#equipmentId').val(''),
-    $('#equipmentName').val(''),
-    $('#equipmentType').val(''),
-    $('#equipmentStatus').val(''),
-    $('#assignedStaff').val('')
-    $('#assignedField').val('')    
+    $('#equipmentId').val('');
+    $('#equipmentName').val('');
+    $('#equipmentType').val('');
+    $('#equipmentStatus').val('AVAILABLE');
+    $('#assignedField').val('');    
+    // $('#assignedStaff').val('')
 
 }
 
@@ -92,11 +118,9 @@ function getEquipmentObject(){
         name:        $('#equipmentName').val(),
         type:        $('#equipmentType').val(),
         status:      $('#equipmentStatus').val(),
-        staffId:     $('#assignedStaff').val(),
-        fieldCode:   $('#assignedField').val(),
+        staffId:     "N/A",
+        fieldCode:   $('#assignedField').val()
     }
     return equipment;
 }
-
-
 

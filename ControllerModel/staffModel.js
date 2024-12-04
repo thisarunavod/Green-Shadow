@@ -1,3 +1,5 @@
+import { getAllFields } from "../ControllerModel/fm.js"
+
 export function generateNewStaffId(callback) {
   const http = new XMLHttpRequest();
   http.onreadystatechange = () => {
@@ -21,7 +23,7 @@ export function generateNewStaffId(callback) {
 
 
 export function saveStaffMember(staffObj){
-    console.log(staffObj)
+    
     const staffObjJSON = JSON.stringify(staffObj)
     return new Promise((resolve,reject)=>{
         const http = new XMLHttpRequest();
@@ -147,3 +149,43 @@ export function deleteStaffMember(id){
     http.send();
   });
 } 
+
+
+
+export function loadFieldCodes(){
+    
+  getAllFields((fieldList) => {
+      fieldList.forEach((field)=>{
+          $("#field").append( 
+              `<option value="${field.fieldCode}"> (${field.fieldCode +")-->"+field.fieldName}</option>
+              `
+          );
+      });
+  });
+}
+
+export function saveFieldStaffDetails(fieldCode,id){
+  
+  return new Promise((resolve,reject)=>{
+      const http = new XMLHttpRequest();
+      http.onreadystatechange = () => {
+        if (http.readyState === 4) {
+          if (http.status === 201) {
+              resolve();
+          } else {
+            console.error("Failed");
+            console.error("Status", http.status);
+            console.error("Ready State", http.readyState);
+            reject(new Error("Failed to update crop with status: " + http.status));
+          }
+        }
+      };
+  
+      http.open("POST", "http://localhost:8080/greenShadow/api/v1/fieldStaffDetails/"+fieldCode+"/"+id, true);
+      http.setRequestHeader("Content-Type","application/json");
+      http.send();
+  });
+
+
+  
+}

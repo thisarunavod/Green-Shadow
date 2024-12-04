@@ -100,26 +100,27 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label for="equipmentStatus">Status</label>
-                <select class="form-select" id="equipmentStatus" required>
+                <input type="text" class="form-control" id="equipmentStatus">
+                <!-- <select class="form-select" id="equipmentStatus" >
                   <option value="AVAILABLE">Available</option>
                   <option value="NOT_AVAILABLE">Assigned</option>
                   <option value="UNDER_MAINTENANCE">Under Maintenance</option>
-                </select>
+                </select> -->
               </div>
-              <div class="col-md-6 mb-3">
+              <!-- <div class="col-md-6 mb-3">
                 <label for="assignedStaff">Assigned Staff</label>
                 <select class="form-select" id="assignedStaff" required>
-                  <option value="N/A">Not Assigned</option>
-                  <!-- Dynamically load staff here -->
+                  <option value="N/A">N/A</option>    
                 </select>
-              </div>
+              </div>-->
+
               <div class="col-md-6 mb-3">
                 <label for="assignedField">Assigned Field</label>
+                <label id="#currentField">asignField</label>
                 <select class="form-select" id="assignedField" required>
-                  <option value="N/A">Not Assigned</option>
-                  <!-- Dynamically load fields here -->
+                  <option value="N/A">N/A</option>
                 </select>
-              </div>
+              </div> 
             </div>
           </form>
         </div>

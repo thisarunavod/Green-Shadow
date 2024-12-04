@@ -154,19 +154,23 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="role">Role</label>
-                <select class="form-select" id="role" required>
+                <input type="role" class="form-control" id="role"  readonly>
+                <!-- <select class="form-select" id="role" required>
                   <option value="">Select Role</option>
                   <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
                   <option value="MANAGER">MANAGER</option>
                   <option value="SCIENTIST">SCIENTIST</option>
                   <option value="OTHER">OTHER</option>
+                </select> -->
+              </div>
+              <div class="col-md-6 mb-3 fieldAssign">
+                <label for="field">Field</label>
+                <label id="currentField"></label>
+                <select class="form-select" id="field" required>
+                  <option value="not_set">N/A</option>
                 </select>
               </div>
               <!-- <div class="col-md-6 mb-3">
-                <label for="field">Field</label>
-                <input type="text" class="form-control" id="field" placeholder="Allocated Field(s)">
-              </div>
-              <div class="col-md-6 mb-3">
                 <label for="vehicle">Vehicle</label>
                 <input type="text" class="form-control" id="vehicle" placeholder="Allocated Vehicle(s)">
               </div> -->

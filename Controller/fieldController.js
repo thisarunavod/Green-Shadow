@@ -302,3 +302,6 @@ $('#removeCrop').click(function(){
     console.error("Error:", error);
   }); 
 });
+
+// equipmentTableBody
+

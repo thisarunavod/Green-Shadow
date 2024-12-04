@@ -4,31 +4,43 @@ import {
     getAllStaffMembers,
     getStaffMember ,
     updateStaffMember,
-    deleteStaffMember
+    deleteStaffMember,
+    loadFieldCodes,
+    saveFieldStaffDetails
 } from "../ControllerModel/staffModel.js"
 
 $(document).ready(function(){
     
     getAllStaffMembers((staffList) => {});
-    
+    loadFieldCodes();
     generateNewStaffId((id) => {
         $("#staffId").val(id); 
     });
 
-    // getAllStaffMembers();
+    $('.fieldAssign').hide();
 });
 
 $("#addMember").click(function(){
     resetForms();
+    $("#currentField").hide();
 });
 
 
 $('#saveStaffBtn').click( function(){
-    
-    saveStaffMember(getStaffObject()).then(()=>{
-        alert("Staff Member Added Successfully");
-        updateTableWithSaving(getStaffObject())
-        resetForms();
+    const fieldCode = $("#field").val()
+    console.log(fieldCode)
+    const member = getStaffObject()
+    saveStaffMember(member).then(()=>{
+        if(fieldCode == 'not_set'){
+            alert("Staff Member Added Successfully");
+            updateTableWithSaving(getStaffObject())
+            resetForms();
+        }else{
+            saveFieldStaffDetails(fieldCode,member.id).then(()=>{
+                alert("Staff Member Added Successfully");}).catch((error) => { 
+                console.error("Error:", error);
+            });
+        }
         
     }).catch((error) => { 
         console.error("Error:", error);
@@ -87,12 +99,13 @@ function updateTableWithSaving(obj){
 let selectedRow = null;
 $(document).on("click", ".view-btn", function () {
     
-    
     selectedRow = $(this).closest("tr"); 
     $("#staffModal").modal("show");
-    $("#saveStaffBtn").hide()
-    $("#removeStaffBtn").show()
-    $("#updateStaffBtn").show()
+    $("#saveStaffBtn").hide();
+    $("#removeStaffBtn").show();
+    $("#updateStaffBtn").show();
+    $("#currentField").show();
+    // $('.fieldAssign').show();
 
     const id = selectedRow.find("#sId").text();  
     getStaffMember(id,(member)=>{
@@ -111,6 +124,16 @@ $(document).on("click", ".view-btn", function () {
         $('#contact').val(member.contactNo),
         $('#email').val(member.email),
         $('#role').val(member.role)
+        $('.fieldAssign').hide();
+        if(member.role == "OTHER"){
+            if(member.designation != "Office_Assistant"){
+                $('.fieldAssign').show();
+                $("#field").val('')
+                $("#field").val(member.fieldStaffDetailsPKs[0].fieldCode);
+            }
+        
+        }
+
     });
     
 });
@@ -120,7 +143,6 @@ $(document).on("click", ".view-btn", function () {
 // chooose designTION action
 $('#chooseDesignation').on('change', function () {
     var designationType = $('#chooseDesignation').val()  
-    
     if (designationType === 'ALL') { $('#staffTableBody tr td').show()}
     
     $("#staffTableBody tr").each(function() {
@@ -131,6 +153,7 @@ $('#chooseDesignation').on('change', function () {
             $(this).find("td").show()
         }
     });
+
 });
 
 
@@ -184,4 +207,80 @@ function resetForms(){
     $('#contact').val('')
     $('#email').val('')
     $('#role').val('')
+
 }
+
+$('#designation').on('change', function () {
+    var designationType = $('#designation').val()  
+    if (designationType === 'ALL') { $('#staffTableBody tr td').show()}
+    switch(designationType) {
+        case "Senior_Technician":
+            $('.fieldAssign').show();
+            $('#role').val('OTHER');
+          break;
+        case "Technician":
+            $('.fieldAssign').show();
+            $('#role').val('OTHER');
+          break;
+        case "Supervisors":
+            $('.fieldAssign').show()
+            $('#role').val('OTHER')
+          break;
+        case "Labors":
+            $('.fieldAssign').show()
+            $('#role').val('OTHER')
+          break;
+        case "Office_Assistant":
+            $('.fieldAssign').hide()
+            $('#role').val('OTHER')
+          break;
+        case "Labors":
+            $('.fieldAssign').hide()
+            $('#role').val('OTHER')
+          break;
+        case "Manager":
+            $('.fieldAssign').hide()
+            $('#role').val('MANAGER')
+          break;
+        case "Senior_Assistant_Manager":
+            $('.fieldAssign').hide()
+            $('#role').val('MANAGER')  
+          break;
+        case "Assistant_Manager":
+            $('.fieldAssign').hide()
+            $('#role').val('MANAGER')  
+          break;
+        case "Senior_Agronomist":
+            $('.fieldAssign').hide()
+            $('#role').val('SCIENTIST')  
+          break;  
+        case "Agronomist":
+            $('.fieldAssign').hide()
+            $('#role').val('SCIENTIST')  
+          break;
+        case "Soil_scientist":
+            $('.fieldAssign').hide()
+            $('#role').val('SCIENTIST')  
+          break;
+        default:$('#role').val('ADMINISTRATIVE')
+          
+    }   
+
+});
+
+// Office_Assistant
+// Senior_Agronomist
+// Agronomist
+// Soil_scientist
+// Senior_Technician
+// Technician
+// Supervisors
+// Labors
+
+// ADMINISTRATIVE
+// MANAGER
+// SCIENTIST
+// OTHER
+
+
+// ADMINISTRATIVE,MANAGER,SCIENTIST,OTHER
