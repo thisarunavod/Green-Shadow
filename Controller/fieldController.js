@@ -1,7 +1,8 @@
 
 import { getFieldData,updateField } from "../ControllerModel/fm.js";
 import { saveCrop ,getAllCropDetails , updateCrop, deleteCrop } from "../ControllerModel/cropModel.js";
-
+import { getAllStaffMembers, getFieldStaffMembers, getFieldStaffVehicles } from "../ControllerModel/staffModel.js";
+import { getRelavantFieldEquipment }from "../ControllerModel/equipmentModel.js"
 const urlParams = new URLSearchParams(window.location.search);;
 const fieldCode = urlParams.get('fieldCode');;
 
@@ -44,7 +45,19 @@ $(document).ready(function() {
         
    });
 
-   getAllCropDetails(fieldCode)
+   getAllCropDetails(fieldCode);
+
+   getFieldStaffMembers(fieldCode,(Idlist)=>{
+      let relavantIdList = Idlist  
+      getFieldStaffVehicles(relavantIdList)
+   });
+
+
+   getRelavantFieldEquipment(fieldCode,(equipmentList)=>{
+      console.log(equipmentList)
+   })
+
+   
 
 });
 

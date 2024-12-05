@@ -6,7 +6,8 @@ import {
     updateStaffMember,
     deleteStaffMember,
     loadFieldCodes,
-    saveFieldStaffDetails
+    saveFieldStaffDetails,
+    updateFieldStaffDetails
 } from "../ControllerModel/staffModel.js"
 
 $(document).ready(function(){
@@ -49,10 +50,21 @@ $('#saveStaffBtn').click( function(){
 });
 
 $('#updateStaffBtn').click( function (){
+    const fieldCode = $("#field").val()
     const member = getStaffObject();
     updateStaffMember(member).then(()=>{
-        alert("Staff Member Added Successfully");
-        updateTableWithUpdateProcess(member)
+        // alert("Staff Member Added Successfully");
+        // updateTableWithUpdateProcess(member)
+        // resetForms();
+        if(fieldCode == 'not_set'){
+            alert("Staff Member Added Successfully");
+        }else{
+            updateFieldStaffDetails(fieldCode,member.id).then(()=>{
+                alert("Staff Member Updated Successfully");}).catch((error) => { 
+                console.error("Error:", error);
+            });
+        }
+        updateTableWithUpdateProcess(getStaffObject())
         resetForms();
         $("#staffModal").modal("hide");
     }).catch((error) => { 

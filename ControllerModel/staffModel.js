@@ -185,7 +185,109 @@ export function saveFieldStaffDetails(fieldCode,id){
       http.setRequestHeader("Content-Type","application/json");
       http.send();
   });
+}
 
 
+export function updateFieldStaffDetails(fieldCode,id){
+  
+  return new Promise((resolve,reject)=>{
+      const http = new XMLHttpRequest();
+      http.onreadystatechange = () => {
+        if (http.readyState === 4) {
+          if (http.status === 204) {
+              resolve();
+          } else {
+            console.error("Failed");
+            console.error("Status", http.status);
+            console.error("Ready State", http.readyState);
+            reject(new Error("Failed to update Field-Staff Details with status: " + http.status));
+          }
+        }
+      };
+  
+      http.open("PATCH", "http://localhost:8080/greenShadow/api/v1/fieldStaffDetails/"+fieldCode+"/"+id, true);
+      http.setRequestHeader("Content-Type","application/json");
+      http.send();
+  });
+}
+
+export function getFieldStaffMembers(fieldCode,takeIdList){
+  const http = new XMLHttpRequest();
+  http.onreadystatechange = () => {
+    if (http.readyState === 4) {
+      if (http.status === 200) {
+        const staffList = JSON.parse(http.responseText);
+        
+        let relavantFieldStaffList = [];
+        staffList.forEach((member) => {
+          relavantFieldStaffList.push(member.id)
+          $("#staffTableBody").append(
+              `<tr class="staffDetails">
+                  <td id = "sId">${member.designation}</td>
+                  <td>${member.id}</td>
+                  <td>${member.firstName}</td>
+                  <td>${member.contactNo}<br>${member.email}</td>
+                  <td>${member.vehicleCodeList}</td>
+              </tr>`
+            );
+        });
+        takeIdList(relavantFieldStaffList)
+                
+        
+      } else {
+        console.error("Failed");
+        console.error("Status", http.status);
+        console.error("Ready State", http.readyState);
+        console.error("Failed with Status:", http.status);
+      }
+    }
+  };
+
+  http.open( "GET", "http://localhost:8080/greenShadow/api/v1/fieldStaffDetails/"+fieldCode, true );
+  http.send();
+
+}
+
+
+export function getFieldStaffVehicles(staffIdList){
+  // if(relavantFieldStaffList != null){
+    
+    const http = new XMLHttpRequest();
+    http.onreadystatechange = () => {
+        if (http.readyState === 4) {
+        if (http.status === 200) {
+            const vehicleList = JSON.parse(http.responseText);
+            
+            vehicleList.forEach((vehicle) => {
+              if(staffIdList.includes(vehicle.staffId)){
+                $("#vehicleTableBody").append(
+                    `<tr class="vehicleDetails">
+                        <td>${vehicle.category}</td>
+                        <td id = "vCode">${vehicle.vehicleCode}</td>
+                        <td>${vehicle.licensePlateNumber}</td>
+                        <td>${vehicle.fuelType}</td>
+                        <td>${vehicle.status}</td>
+                      </tr>`
+                );
+              }
+            
+            });
+
+        } else {
+            console.error("Failed");
+            console.error("Status", http.status);
+            console.error("Ready State", http.readyState);
+            console.error("Failed with Status:", http.status);
+        }
+        }
+    };
+    http.open( "GET", "http://localhost:8080/greenShadow/api/v1/vehicle/allVehicles", true );
+    http.send();
   
 }
+
+
+export function getRelavantFieldEquipments(){
+  
+}
+

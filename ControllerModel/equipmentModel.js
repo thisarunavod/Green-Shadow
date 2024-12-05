@@ -166,3 +166,37 @@ export function updateEquipment(equipment){
         http.send(equipmentObjJSON);
     });
 }
+
+
+export function getRelavantFieldEquipment(fieldCode,callBack){
+  const http = new XMLHttpRequest();
+  http.onreadystatechange = () => {
+    if (http.readyState === 4) {
+      if (http.status === 200) {
+
+        const equipmentList = JSON.parse(http.responseText);
+        equipmentList.forEach((equipment) => {
+          if(fieldCode == equipment.fieldCode){
+            $("#equipmentTableBody").append(
+              `<tr class="equipmentDetails">
+                  <td id = "eId">${equipment.equipmentId}</td>
+                  <td>${equipment.name}</td>
+                  <td>${equipment.type}</td>
+                  <td>${equipment.status}</td>
+              </tr>`
+            );
+          }  
+        });
+        callBack(equipmentList)
+        
+      } else {
+        console.error("Failed");
+        console.error("Status", http.status);
+        console.error("Ready State", http.readyState);
+        console.error("Failed with Status:", http.status);
+      }
+    }
+  };
+  http.open( "GET", "http://localhost:8080/greenShadow/api/v1/equipment/allEquipments", true );
+  http.send();   
+}
