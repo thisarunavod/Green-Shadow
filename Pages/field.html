@@ -24,6 +24,10 @@
           <p><strong>Field Name     :</strong> <label for="setFieldName" id="fename"></p>
           <p><strong>Field Location :</strong> <label for="setFieldCode" id="felocation"></p>
           <p><strong>Extent Size    :</strong> <label for="setFieldCode" id="fesize"></p>
+          <div class="d-flex justify-content-end mb-3">
+            <button type="button" class="btn btn-primary editFieldDetails" data-bs-toggle="modal" data-bs-target="#fieldModal"> Edit Field Details </button>
+          </div>
+          
         </div>
 
         <!-- Field Image -->
@@ -35,17 +39,14 @@
         
         
 
-        <div class="d-flex justify-content-end mb-3">
-          <button type="button" class="btn btn-primary editFieldDetails" data-bs-toggle="modal" data-bs-target="#fieldModal"> Edit Field Details </button>
-        </div>
-        
         <!-- Edit Field Button -->
 
       </div>
 
 
       <!-- Crop Section -->
-      <h3 class="section-header">Crop Details</h3>
+      <!-- <h3 class="section-header cropDetailsTitle">Crop Details</h3> -->
+      <h3 id="cropDetails">Crop Details</h3>
       <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#cropModal">
         Add Crop
       </button>
@@ -65,7 +66,8 @@
       </table>
 
       <!-- Vehicle Section -->
-      <h3 class="section-header">Vehicle Details</h3>
+      <!-- <h3 class="section-header">Vehicle Details</h3> -->
+      <h3 id="vehicleDetails">Vehicle Details</h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -80,7 +82,8 @@
       </table>
 
       <!-- Staff Section -->
-      <h3 class="section-header">Staff Member Details</h3>
+      <!-- <h3 class="section-header">Staff Member Details</h3> -->
+      <h3 id="staffMemberDetails">Staff Member Details</h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -95,8 +98,7 @@
       </table>
      
       <!-- Equipment Section -->
-      <h3 class="section-header">Equipment Details</h3>
-
+      <h3 id="equipmentSection">Equipment Details</h3>
       <table class="table table-striped">
         <thead>
           <tr>
