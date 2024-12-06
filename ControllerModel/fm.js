@@ -81,7 +81,7 @@ export function getAllFields(callBack) {
                   <td>${field.extentSizeOfTheField}</td>
                   <td><img src="data:image/jpeg;base64,${field.fieldImage1}" width="50" height="50"></td>
                   <td><img src="data:image/jpeg;base64,${ field.fieldImage2 }" width="50" height="50"></td>
-                  <td> <button class="btn btn-success view-btn" data-id="${ field.fieldCode}" onclick="myFunction()><i class="bi bi-eye"></i></button></td>
+                  <td> <button class="btn btn-success view-btn" data-id="${ field.fieldCode}" onclick="myFunction()><i class="bi bi-eye"></i>View</button></td>
               </tr>`
           );
         });

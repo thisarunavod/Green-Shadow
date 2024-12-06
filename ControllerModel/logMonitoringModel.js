@@ -19,6 +19,10 @@ export function generateNewLogCode(setCode) {
 }
 
 
+export function saveMonitoringLog(){
+  
+}
+
 export function getAllFeildsCodes(setValues){
     const http = new XMLHttpRequest();
     http.onreadystatechange = () => {

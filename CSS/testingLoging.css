@@ -1,0 +1,48 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  /* Card Styling */
+  .card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header Styling */
+  h2 {
+    color: #4caf50; /* Green color for agriculture theme */
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  /* Button Styling */
+  .btn-success {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    font-size: 1.1rem;
+    padding: 10px;
+  }
+  
+  .btn-success:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+  }
+  
+  /* Form Styling */
+  .form-control {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .card {
+      width: 90%;
+    }
+  }
+  

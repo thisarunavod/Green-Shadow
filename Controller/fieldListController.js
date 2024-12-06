@@ -84,25 +84,25 @@ function valiForms(){
 // Save Field
 saveFieldBtn.addEventListener('click', function () {
     if(valiForms()){
-            console.log("okok");
-        // const fieldCode =  $("#fieldCode").val();
-        // const fieldName =  $("#fieldName").val();
-        // const fieldLocation =  $("#fieldLocation").val();
-        // const [fieldLocationX, fieldLocationY] = fieldLocation.split(',').map(coord => parseFloat(coord.trim()));    
-        // const extentSizeOfTheField =  $("#extentSize").val();
-        // const fieldImage1 = selectedImage1;
-        // const fieldImage2 = selectedImage2;
+            
+        const fieldCode =  $("#fieldCode").val();
+        const fieldName =  $("#fieldName").val();
+        const fieldLocation =  $("#fieldLocation").val();
+        const [fieldLocationX, fieldLocationY] = fieldLocation.split(',').map(coord => parseFloat(coord.trim()));    
+        const extentSizeOfTheField =  $("#extentSize").val();
+        const fieldImage1 = selectedImage1;
+        const fieldImage2 = selectedImage2;
     
-        // const formData = new FormData();
-        // formData.append('fieldCode',fieldCode)
-        // formData.append('fieldName',fieldName)
-        // formData.append('fieldLocationX',fieldLocationX)
-        // formData.append('fieldLocationY',fieldLocationY)
-        // formData.append('extentSizeOfTheField',extentSizeOfTheField)
-        // formData.append('fieldImage1',fieldImage1)
-        // formData.append('fieldImage2',fieldImage2)
+        const formData = new FormData();
+        formData.append('fieldCode',fieldCode)
+        formData.append('fieldName',fieldName)
+        formData.append('fieldLocationX',fieldLocationX)
+        formData.append('fieldLocationY',fieldLocationY)
+        formData.append('extentSizeOfTheField',extentSizeOfTheField)
+        formData.append('fieldImage1',fieldImage1)
+        formData.append('fieldImage2',fieldImage2)
     
-        // saveField(formData);
+        saveField(formData);
     }
 
 
