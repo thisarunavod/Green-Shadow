@@ -25,28 +25,53 @@ $("#addEquipment").click(function(){
 });
 
 
-$('#saveEquipmentBtn').click(function (){ 
+function validForms(){
+    let isValid = true;
     
-    const equipment = getEquipmentObject();
-    saveEquipment(equipment).then(()=>{
-        alert("Vehicle Saved Successfully");
-        updateTableWithSaveEquipment(equipment);
-        resetForms();
-    }).catch((error) => { 
-        console.error("Error:", error);
-    });
+    var equipmentName =  document.getElementById("equipmentName")
+    var regexequipmentName = /^[A-Za-z0-9\- ]+$/; ; // for names
+    
+    if (!equipmentName.value) {
+        isValid = false;
+        equipmentName.classList.add("is-invalid");
+    } else if (!regexequipmentName.test(equipmentName.value.trim())) { 
+        isValid = false;
+        equipmentName.classList.add("is-invalid");
+    } else {
+        equipmentName.classList.remove("is-invalid");
+        equipmentName.classList.add("is-valid");
+    }
+
+    return isValid
+
+
+}
+
+$('#saveEquipmentBtn').click(function (){ 
+    if(validForms()){
+        const equipment = getEquipmentObject();
+        saveEquipment(equipment).then(()=>{
+            alert("Vehicle Saved Successfully");
+            updateTableWithSaveEquipment(equipment);
+            resetForms();
+        }).catch((error) => { 
+            console.error("Error:", error);
+        });
+    }
     
 });
 
 $("#updateEquipmentBtn").click(function(){
-    const equipment = getEquipmentObject();
-    updateEquipment(equipment).then(()=>{
-        alert("Equipoment Updated Successfully");
-        updateEquipmentTableWithUpdateProcess(equipment);
-        $("#equipmentModal").modal("hide");
-    }).catch((error) => { 
-        console.error("Error:", error);
-    });
+    if(validForms()){
+        const equipment = getEquipmentObject();
+        updateEquipment(equipment).then(()=>{
+            alert("Equipoment Updated Successfully");
+            updateEquipmentTableWithUpdateProcess(equipment);
+            $("#equipmentModal").modal("hide");
+        }).catch((error) => { 
+            console.error("Error:", error);
+        });
+    }
 });
 
 function updateEquipmentTableWithUpdateProcess(equipment){

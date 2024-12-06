@@ -24,21 +24,65 @@ $("#addVehicle").click(function(){
 });
 
 
+function validForms(){
 
-
-$('#saveVehicleBtn').click(function (){ 
-    console.log($('#loadStaffId').val())
-    saveVehicle(getVehicleObject()).then(()=>{
-        alert("Vehicle Saved Successfully");
-        // updateTableWithSaving(getStaffObject())
-        updateTableWithSave(getVehicleObject())
-        resetForms();
-        $("#vehicleModal").modal("hide");
-    }).catch((error) => { 
-        console.error("Error:", error);
-    });
+    let isValid = true;
     
+    var licensePlateNumber =  document.getElementById("licensePlateNumber")
+    var category =  document.getElementById("category")
+    var fuelType =  document.getElementById("fuelType")
+    var loadStaffId = document.getElementById("loadStaffId")
+    var status = document.getElementById("status")
+
+    
+    var regex = /^[A-Z0-9-]{1,10}$/; // for names
+    
+
+
+    if (!licensePlateNumber.value) {
+        isValid = false;
+        licensePlateNumber.classList.add("is-invalid");
+    } else if (!regex.test(licensePlateNumber.value.trim())) { 
+        isValid = false;
+        licensePlateNumber.classList.add("is-invalid");
+        console.log("Regex failed for:", licensePlateNumber.value);
+    } else {
+        licensePlateNumber.classList.remove("is-invalid");
+        licensePlateNumber.classList.add("is-valid");
+    }
+
+    return isValid
+}
+
+document.getElementById("saveVehicleBtn").addEventListener("click", (event) => {
+    event.preventDefault();
+    if(validForms()) { 
+        console.log("OK OK")
+        saveVehicle(getVehicleObject()).then(()=>{
+            alert("Vehicle Saved Successfully");
+            updateTableWithSave(getVehicleObject())
+            resetForms();
+            $("#vehicleModal").modal("hide");
+        }).catch((error) => { 
+            console.error("Error:", error);
+        });
+        
+    };
 });
+
+// $('#saveVehicleBtn').click(function (){ 
+
+    //     console.log($('#loadStaffId').val())
+    //     saveVehicle(getVehicleObject()).then(()=>{
+    //         alert("Vehicle Saved Successfully");
+    //         // updateTableWithSaving(getStaffObject())
+    //         updateTableWithSave(getVehicleObject())
+    //         resetForms();
+    //         $("#vehicleModal").modal("hide");
+    //     }).catch((error) => { 
+    //         console.error("Error:", error);
+    //     });
+// });
 
 function updateTableWithSave(vehicle){
     
@@ -79,16 +123,17 @@ $(document).on("click", ".view-btn", function () {
 });
 
 $("#updateVehicleBtn").click(function(){
-
-    const vehicle = getVehicleObject();
-    updateVehicle(vehicle).then(()=>{
-        alert("Vehicle Updated Successfully");
-        updateVehicleTableWithUpdateProcess(vehicle)
-        resetForms();
-        $("#vehicleModal").modal("hide");
-    }).catch((error) => { 
-        console.error("Error:", error);
-    });
+    if(validForms()){
+        const vehicle = getVehicleObject();
+        updateVehicle(vehicle).then(()=>{
+            alert("Vehicle Updated Successfully");
+            updateVehicleTableWithUpdateProcess(vehicle)
+            resetForms();
+            $("#vehicleModal").modal("hide");
+        }).catch((error) => { 
+            console.error("Error:", error);
+        });
+    }
 
 });
 

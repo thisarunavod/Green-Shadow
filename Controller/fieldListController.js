@@ -14,27 +14,97 @@ const updateFieldBtn = document.getElementById('updateField');
 const tableBody = document.getElementById('fieldTableBody');
 let selectedRow = null;
 
+
+function valiForms(){
+    
+    let isValid = true;
+    
+    var fieldName =  document.getElementById("fieldName")
+    var fieldLocation = document.getElementById("fieldLocation")
+    var extentSize =  document.getElementById("extentSize")
+    var fieldImage1 = document.getElementById("fieldImage1")
+    var fieldImage2 = document.getElementById("fieldImage2")
+    var regexfieldName = /^[A-Za-z0-9\- ]+$/; ; // for names
+    var regexSize = /^\d+(\.\d+)?$/
+    var regexPoint = /^(\(\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*\)|-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?)$/
+ 
+    if (!fieldImage2.value) {
+        isValid = false;
+        fieldImage2.classList.add("is-invalid");
+    }else{
+        fieldImage2.classList.remove("is-invalid");
+        fieldImage2.classList.add("is-valid");
+    }
+
+    if (!fieldImage1.value) {
+        isValid = false;
+        fieldImage1.classList.add("is-invalid");
+    }else{
+        fieldImage1.classList.remove("is-invalid");
+        fieldImage1.classList.add("is-valid");
+    }
+
+    if (!extentSize.value) {
+        isValid = false;
+        extentSize.classList.add("is-invalid");
+    } else if (!regexSize.test(extentSize.value.trim())) { 
+        isValid = false;
+        extentSize.classList.add("is-invalid");
+    } else {
+        extentSize.classList.remove("is-invalid");
+        extentSize.classList.add("is-valid");
+    }
+
+    if (!fieldName.value) {
+        isValid = false;
+        fieldName.classList.add("is-invalid");
+    } else if (!regexfieldName.test(fieldName.value.trim())) { 
+        isValid = false;
+        fieldName.classList.add("is-invalid");
+    } else {
+        fieldName.classList.remove("is-invalid");
+        fieldName.classList.add("is-valid");
+    }
+
+    if (!fieldLocation.value) {
+        isValid = false;
+        fieldLocation.classList.add("is-invalid");
+    } else if (!regexPoint.test(fieldLocation.value.trim())) { 
+        isValid = false;
+        fieldLocation.classList.add("is-invalid");
+    } else {
+        fieldLocation.classList.remove("is-invalid");
+        fieldLocation.classList.add("is-valid");
+    }
+
+    return isValid;
+}
+
+
 // Save Field
 saveFieldBtn.addEventListener('click', function () {
+    if(valiForms()){
+            console.log("okok");
+        // const fieldCode =  $("#fieldCode").val();
+        // const fieldName =  $("#fieldName").val();
+        // const fieldLocation =  $("#fieldLocation").val();
+        // const [fieldLocationX, fieldLocationY] = fieldLocation.split(',').map(coord => parseFloat(coord.trim()));    
+        // const extentSizeOfTheField =  $("#extentSize").val();
+        // const fieldImage1 = selectedImage1;
+        // const fieldImage2 = selectedImage2;
+    
+        // const formData = new FormData();
+        // formData.append('fieldCode',fieldCode)
+        // formData.append('fieldName',fieldName)
+        // formData.append('fieldLocationX',fieldLocationX)
+        // formData.append('fieldLocationY',fieldLocationY)
+        // formData.append('extentSizeOfTheField',extentSizeOfTheField)
+        // formData.append('fieldImage1',fieldImage1)
+        // formData.append('fieldImage2',fieldImage2)
+    
+        // saveField(formData);
+    }
 
-    const fieldCode =  $("#fieldCode").val();
-    const fieldName =  $("#fieldName").val();
-    const fieldLocation =  $("#fieldLocation").val();
-    const [fieldLocationX, fieldLocationY] = fieldLocation.split(',').map(coord => parseFloat(coord.trim()));    
-    const extentSizeOfTheField =  $("#extentSize").val();
-    const fieldImage1 = selectedImage1;
-    const fieldImage2 = selectedImage2;
-
-    const formData = new FormData();
-    formData.append('fieldCode',fieldCode)
-    formData.append('fieldName',fieldName)
-    formData.append('fieldLocationX',fieldLocationX)
-    formData.append('fieldLocationY',fieldLocationY)
-    formData.append('extentSizeOfTheField',extentSizeOfTheField)
-    formData.append('fieldImage1',fieldImage1)
-    formData.append('fieldImage2',fieldImage2)
-
-    saveField(formData);
 
 });
 

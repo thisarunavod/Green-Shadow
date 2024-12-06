@@ -1,3 +1,22 @@
+export function generateNewCropCode(callback) {
+  const http = new XMLHttpRequest();
+  http.onreadystatechange = () => {
+    if (http.readyState === 4) {
+      if (http.status === 200) {
+        callback(http.responseText); // Pass the response to the callback
+      } else {
+        console.error("Failed");
+        console.error("Status", http.status);
+        console.error("Ready State", http.readyState);
+        console.error("Failed with Status:", http.status);
+      }
+    }
+  };
+
+  http.open("GET", "http://localhost:8080/greenShadow/api/v1/crop", true);
+  http.setRequestHeader("Content-Type", "application/json");
+  http.send();
+}
 
 
 export function saveCrop(crop){

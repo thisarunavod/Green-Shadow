@@ -103,3 +103,13 @@ th{
 tr{
   font-weight: 375;
 }
+
+.text-center{
+  font-size: 30px;
+  color: green;
+  font-weight: 450 ;
+}
+
+p strong{
+  font-weight: 425;
+}

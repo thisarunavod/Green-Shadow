@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Monitoring - Green Shadow</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+    .table-container {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .table-title {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #006400;
+    }
+    th {
+      background-color: #006400;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #006400;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #004d00;
+    }
+    .modal-dialog {
+      max-width: 900px;
+    }
+    .modal-content {
+      padding: 20px;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #006400;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="table-container">
+      <h2 class="table-title">Log Monitoring Observation</h2>
+      <button class="btn btn-primary mb-3" id="addLog" data-bs-toggle="modal" data-bs-target="#logModal">Add New Log</button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Log ID</th>
+            <th>Timestamp</th>
+            <th>Source</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Details</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="logTableBody">
+          <!-- Rows will be added dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="logModal" tabindex="-1" aria-labelledby="logModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logModalLabel">Add/Edit Log</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="logForm">
+            <!-- Log Details Section -->
+            <div class="section-title">Log Details</div>
+            <div class="row">
+  
+              <!-- Log Code -->
+              <div class="col-md-6 mb-3">
+                <label for="logCode">Log Code</label>
+                <input type="text" class="form-control" id="logCode" placeholder="Unique Log Code" readonly>
+                <small class="form-text text-muted">Use a proper prefix for unique identification.</small>
+              </div>
+  
+              <!-- Log Date -->
+              <div class="col-md-6 mb-3">
+                <label for="logDate">Log Date</label>
+                <input type="date" class="form-control" id="logDate" required>
+                <div class="invalid-feedback">Please select a valid date.</div>
+              </div>
+  
+              <!-- Log Details/Observation -->
+              <div class="col-md-12 mb-3">
+                <label for="logDetails">Log Details / Observation</label>
+                <textarea class="form-control" id="logDetails" rows="3" placeholder="Observation details"></textarea>
+                <div class="invalid-feedback">Log details are required.</div>
+              </div>
+  
+              <!-- Observed Image -->
+              <div class="col-md-12 mb-3">
+                <label for="observedImage">Observed Image</label>
+                <input type="file" class="form-control" id="observedImage" accept="image/*">
+                <small class="form-text text-muted">Upload an image of the observed status.</small>
+                <div class="invalid-feedback">Please upload an image.</div>
+              </div>
+  
+              
+              <!-- Relevant Fields -->
+              <div class="container mt-4">
+                <label for="cropSelect">Select a Field</label>
+                <select class="form-select" id="fieldSelect">
+                  <!-- Options will be dynamically added -->
+                </select>
+                <p class="mt-3">
+                  <strong>Selected Value:</strong>
+                  <label id="selectedFieldValue"></label>
+                  <button type="button" class="btn btn-primary" id="clearFieldSelection">clear</button> 
+                  <!-- <span id="selectedFieldValue">None</span> -->
+                </p>
+              </div>
+
+              <!-- Relevant Crops -->
+              <div class="container mt-4">
+                <label for="cropSelect">Select a Crop</label>
+                <select class="form-select" id="cropSelect">
+                  <!-- Options will be dynamically added -->
+                </select>
+                <p class="mt-3">
+                  <strong>Selected Value:</strong> 
+                  <label id="selectedCropValue"></label>
+                  <button type="button" class="btn btn-primary" id="clearCropsSelection">clear</button>
+                </p>
+              </div>
+
+              <!-- Relevant Staff -->
+              <div class="container mt-4">
+                <label for="staffSelect">Select Staff Members</label>
+                <select class="form-select" id="staffSelect">
+                  <!-- Options will be dynamically added -->
+                </select>
+                <p class="mt-3">
+                  <strong>Selected Value:</strong> 
+                  <label id="selectedStaffValue"></label>
+                  <button type="button" class="btn btn-primary" id="clearStaffSelection">clear</button>
+                </p>
+              </div>
+
+              
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="saveLogBtn">Save Log</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="../Controller/logMonitoring.js"></script>
+</body>
+</html>

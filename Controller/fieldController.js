@@ -1,6 +1,6 @@
 
 import { getFieldData,updateField } from "../ControllerModel/fm.js";
-import { saveCrop ,getAllCropDetails , updateCrop, deleteCrop } from "../ControllerModel/cropModel.js";
+import { saveCrop ,getAllCropDetails , updateCrop, deleteCrop , generateNewCropCode } from "../ControllerModel/cropModel.js";
 import { getAllStaffMembers, getFieldStaffMembers, getFieldStaffVehicles } from "../ControllerModel/staffModel.js";
 import { getRelavantFieldEquipment }from "../ControllerModel/equipmentModel.js"
 const urlParams = new URLSearchParams(window.location.search);;
@@ -41,7 +41,7 @@ $(document).ready(function() {
         const validBase64String2 = base64Prefix + field.fieldImage2;
         selectedImage2 = base64ToFile(validBase64String2, "image2.jpg");
 
-
+        
         
    });
 
@@ -57,6 +57,9 @@ $(document).ready(function() {
       console.log(equipmentList)
    })
 
+   generateNewCropCode((cropCode)=>{
+      $("#cropCode").val(cropCode)      
+   });   
    
 
 });

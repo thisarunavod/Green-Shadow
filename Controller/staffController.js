@@ -26,50 +26,226 @@ $("#addMember").click(function(){
     $("#currentField").hide();
 });
 
+function validateForm(){
+    let isValid = true;
+    var firstName = document.getElementById("firstName");
+    var lastName =document.getElementById("lastName")
+    var designation = document.getElementById("designation")
+    var gender =  document.getElementById("gender")
+    var joinDate = document.getElementById("joinedDate")
+    var dob =  document.getElementById("dob")
+    var addressLine1 =  document.getElementById("addressLine1")
+    var addressLine2 =  document.getElementById("addressLine2")
+    var addressLine3 =  document.getElementById("addressLine3")
+    var addressLine4 =  document.getElementById("addressLine4")
+    var addressLine5 =  document.getElementById("addressLine5")
+    var contact =  document.getElementById("contact")
+    var email =  document.getElementById("email")
 
-$('#saveStaffBtn').click( function(){
-    const fieldCode = $("#field").val()
-    console.log(fieldCode)
-    const member = getStaffObject()
-    saveStaffMember(member).then(()=>{
-        if(fieldCode == 'not_set'){
-            alert("Staff Member Added Successfully");
-            updateTableWithSaving(getStaffObject())
-            resetForms();
-        }else{
-            saveFieldStaffDetails(fieldCode,member.id).then(()=>{
-                alert("Staff Member Added Successfully");}).catch((error) => { 
-                console.error("Error:", error);
-            });
-        }
-        
-    }).catch((error) => { 
-        console.error("Error:", error);
-    });
+    var regex = /^[A-Z][a-z]*$/; // for names
+    var regexContact = /^\+?[0-9]{1,4}?[-.\s]?[0-9]{3,5}[-.\s]?[0-9]{3,5}[-.\s]?[0-9]{3,5}$/; 
+    var regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; 
+    var regexAddres = /^[a-zA-Z0-9\s.,#\-\/]+$/;
 
+
+    if (!addressLine1.value) {
+        isValid = false;
+        addressLine1.classList.add("is-invalid");
+    } else if (!regexAddres.test(addressLine1.value.trim())) { 
+        isValid = false;
+        addressLine1.classList.add("is-invalid");
+        console.log("Regex failed for:", addressLine1.value);
+    } else {
+        addressLine1.classList.remove("is-invalid");
+        addressLine3.classList.add("is-valid");
+    }
+
+    if (!addressLine2.value) {
+        isValid = false;
+        addressLine2.classList.add("is-invalid");
+    } else if (!regexAddres.test(addressLine2.value.trim())) { 
+        isValid = false;
+        addressLine2.classList.add("is-invalid");
+        console.log("Regex failed for:", addressLine2.value);
+    } else {
+        addressLine2.classList.remove("is-invalid");
+        addressLine2.classList.add("is-valid");
+    }
+
+    if (!addressLine3.value) {
+        isValid = false;
+        addressLine3.classList.add("is-invalid");
+    } else if (!regexAddres.test(addressLine3.value.trim())) { 
+        isValid = false;
+        addressLine3.classList.add("is-invalid");
+        console.log("Regex failed for:", addressLine3.value);
+    } else {
+        addressLine3.classList.remove("is-invalid");
+        addressLine3.classList.add("is-valid");
+    }
+    
+    
+    if (!email.value) {
+        isValid = false;
+        email.classList.add("is-invalid");
+    } else if (!regexEmail.test(email.value.trim())) { 
+        isValid = false;
+        email.classList.add("is-invalid");
+        console.log("Regex failed for:", email.value);
+    } else {
+        email.classList.remove("is-invalid");
+        email.classList.add("is-valid");
+    }
+    
+    if (!contact.value) {
+        isValid = false;
+        contact.classList.add("is-invalid");
+    } else if (!regexContact.test(contact.value.trim())) { 
+        isValid = false;
+        contact.classList.add("is-invalid");
+        console.log("Regex failed for:", contact.value);
+    } else {
+        contact.classList.remove("is-invalid");
+        contact.classList.add("is-valid");
+    }
+   
+   
+    if (!firstName.value) {
+        isValid = false;
+        firstName.classList.add("is-invalid");
+    } else if (!regex.test(firstName.value.trim())) { 
+        isValid = false;
+        firstName.classList.add("is-invalid");
+        console.log("Regex failed for:", firstName.value);
+    } else {
+        firstName.classList.remove("is-invalid");
+        firstName.classList.add("is-valid");
+    }
+
+    if (!lastName.value) {
+        isValid = false;
+        lastName.classList.add("is-invalid");
+    } else if (!regex.test(lastName.value.trim())) { 
+        isValid = false;
+        lastName.classList.add("is-invalid");
+        console.log("Regex failed for:", lastName.value);
+    } else {
+        lastName.classList.remove("is-invalid");
+        lastName.classList.add("is-valid");
+    }
+
+    if (!designation.value) {
+        isValid = false;
+        designation.classList.add("is-invalid");
+    } else {
+        designation.classList.remove("is-invalid");
+        designation.classList.add("is-valid");
+    }
+
+    if (!gender.value) {
+        isValid = false;
+        gender.classList.add("is-invalid");
+    } else {
+        gender.classList.remove("is-invalid");
+        gender.classList.add("is-valid");
+    }
+
+    if (!joinDate.value) {
+        isValid = false;
+        joinDate.classList.add("is-invalid");
+    } else {
+        joinDate.classList.remove("is-invalid");
+        joinDate.classList.add("is-valid");
+    }
+
+    if (!dob.value) {
+        isValid = false;
+        dob.classList.add("is-invalid");
+    } else {
+        dob.classList.remove("is-invalid");
+        dob.classList.add("is-valid");
+    }
+
+
+    return isValid;
+
+    
+    
+}
+
+
+document.getElementById("saveStaffBtn").addEventListener("click", (event) => {
+    event.preventDefault();
+    if(validateForm()) { 
+        const fieldCode = $("#field").val()
+        const member = getStaffObject()
+        saveStaffMember(member).then(()=>{
+            if(fieldCode == 'not_set'){
+                alert("Staff Member Added Successfully");
+                updateTableWithSaving(getStaffObject())
+                resetForms();
+            }else{
+                saveFieldStaffDetails(fieldCode,member.id).then(()=>{
+                    alert("Staff Member Added Successfully");
+                    updateTableWithSaving(getStaffObject());
+                    resetForms();
+                }).catch((error) => { 
+                    console.error("Error:", error);
+                });
+            }
+            
+        }).catch((error) => { 
+            console.error("Error:", error);
+        });    
+    };
 });
 
+// $('#saveStaffBtn').click( function(){
+//     if(validateForm()) { console.log("OK OK")};
+//     const fieldCode = $("#field").val()
+//     const member = getStaffObject()
+//     saveStaffMember(member).then(()=>{
+//         if(fieldCode == 'not_set'){
+//             alert("Staff Member Added Successfully");
+//             updateTableWithSaving(getStaffObject())
+//             resetForms();
+//         }else{
+//             saveFieldStaffDetails(fieldCode,member.id).then(()=>{
+//                 alert("Staff Member Added Successfully");}).catch((error) => { 
+//                 console.error("Error:", error);
+//             });
+//         }
+        
+//     }).catch((error) => { 
+//         console.error("Error:", error);
+//     });
+
+// });
+
 $('#updateStaffBtn').click( function (){
-    const fieldCode = $("#field").val()
-    const member = getStaffObject();
-    updateStaffMember(member).then(()=>{
-        // alert("Staff Member Added Successfully");
-        // updateTableWithUpdateProcess(member)
-        // resetForms();
-        if(fieldCode == 'not_set'){
-            alert("Staff Member Added Successfully");
-        }else{
-            updateFieldStaffDetails(fieldCode,member.id).then(()=>{
-                alert("Staff Member Updated Successfully");}).catch((error) => { 
-                console.error("Error:", error);
-            });
-        }
-        updateTableWithUpdateProcess(getStaffObject())
-        resetForms();
-        $("#staffModal").modal("hide");
-    }).catch((error) => { 
-        console.error("Error:", error);
-    });
+    if(validateForm()){
+        
+        const fieldCode = $("#field").val()
+        const member = getStaffObject();
+        updateStaffMember(member).then(()=>{
+            // alert("Staff Member Added Successfully");
+            // updateTableWithUpdateProcess(member)
+            // resetForms();
+            if(fieldCode == 'not_set'){
+                alert("Staff Member Added Successfully");
+            }else{
+                updateFieldStaffDetails(fieldCode,member.id).then(()=>{
+                    alert("Staff Member Updated Successfully");}).catch((error) => { 
+                    console.error("Error:", error);
+                });
+            }
+            updateTableWithUpdateProcess(getStaffObject())
+            resetForms();
+            $("#staffModal").modal("hide");
+        }).catch((error) => { 
+            console.error("Error:", error);
+        });
+    }
 });
 
 $('#removeStaffBtn').click( function (){

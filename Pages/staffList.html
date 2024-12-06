@@ -68,6 +68,7 @@
               <div class="col-md-6 mb-3">
                 <label for="firstName">First Name</label>
                 <input type="text" class="form-control" id="firstName" placeholder="First Name" required>
+                <div class="invalid-feedback">first names are required.</div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="lastName">Last Name</label>
@@ -75,7 +76,6 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label for="designation">Designation</label>
-                <!-- <input type="text" class="form-control" id="designation" placeholder="Designation" required> -->
                 <select class="form-select" id="designation" required>
                   <option value="Manager">Manager</option>
                   <option value="Senior_Assistant_Manager">Senior_Assistant_Manager</option>
@@ -95,7 +95,6 @@
               <div class="col-md-6 mb-3">
                 <label for="gender">Gender</label>
                 <select class="form-select" id="gender" required>
-                  <option value="">Select Gender</option>
                   <option value="MALE">MALE</option>
                   <option value="FEMALE">FEMALE</option>
                   <option value="Other">Other</option>
@@ -155,13 +154,6 @@
               <div class="col-md-6 mb-3">
                 <label for="role">Role</label>
                 <input type="role" class="form-control" id="role"  readonly>
-                <!-- <select class="form-select" id="role" required>
-                  <option value="">Select Role</option>
-                  <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
-                  <option value="MANAGER">MANAGER</option>
-                  <option value="SCIENTIST">SCIENTIST</option>
-                  <option value="OTHER">OTHER</option>
-                </select> -->
               </div>
               <div class="col-md-6 mb-3 fieldAssign">
                 <label for="field">Field</label>
@@ -170,10 +162,7 @@
                   <option value="not_set">N/A</option>
                 </select>
               </div>
-              <!-- <div class="col-md-6 mb-3">
-                <label for="vehicle">Vehicle</label>
-                <input type="text" class="form-control" id="vehicle" placeholder="Allocated Vehicle(s)">
-              </div> -->
+          
             </div>
           </form>
         </div>
