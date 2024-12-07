@@ -85,7 +85,11 @@ body {
     height: 150px;
     background-color: papayawhip;
   }
-  
+
+  h2{
+    color: #259728;
+    font-size: 40px;
+  }
 
   
   @media (max-width: 768px) {

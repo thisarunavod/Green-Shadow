@@ -65,42 +65,114 @@ export function getFieldData(fieldCode,setFieldValues){
     http.send();
 }
 
+// export function getAllFields(callBack) {
+//   const http = new XMLHttpRequest();
+//   http.onreadystatechange = () => {
+//     if (http.readyState === 4) {
+//       if (http.status === 200) {
+//         const fields = JSON.parse(http.responseText);
+//         fields.forEach((field) => {
+//           $("#fieldTableBody").append(
+//               `<tr class="fieldDetails">
+              
+//                   <td id = "fcode">${field.fieldCode || "N/A"}</td>
+//                   <td>${field.fieldName}</td>
+//                   <td>${field.fieldLocation.x},${field.fieldLocation.y}</td>
+//                   <td>${field.extentSizeOfTheField}</td>
+//                   <td><img src="data:image/jpeg;base64,${field.fieldImage1}" width="50" height="50"></td>
+//                   <td><img src="data:image/jpeg;base64,${ field.fieldImage2 }" width="50" height="50"></td>
+//                   <td> <button class="btn btn-success view-btn" data-id="${ field.fieldCode}" onclick="myFunction()><i class="bi bi-eye"></i>View</button></td>
+//               </tr>`
+//           );
+//         });
+//         callBack(fields)
+//       } else {
+//         console.error("Failed");
+//         console.error("Status", http.status);
+//         console.error("Ready State", http.readyState);
+//         console.error("Failed with Status:", http.status);
+//       }
+//     }
+//   };
+//   http.open(
+//     "GET",
+//     "http://localhost:8080/greenShadow/api/v1/field/getAllFields",
+//     true
+//   );
+//   http.send();
+// }
 export function getAllFields(callBack) {
   const http = new XMLHttpRequest();
+
+  // Retrieve values from localStorage
+  const authToken = localStorage.getItem("authToken"); // For example, if you store the auth token in localStorage
+  const userRole = localStorage.getItem("userRole"); // If you store the user role, for example
+
+  // Prepare the headers
+  const headers = {
+    "Authorization": `Bearer ${authToken}`, // Adding Authorization header
+    "User-Role": userRole // Adding another custom header if needed
+  };
+
   http.onreadystatechange = () => {
     if (http.readyState === 4) {
       if (http.status === 200) {
         const fields = JSON.parse(http.responseText);
         fields.forEach((field) => {
           $("#fieldTableBody").append(
-              `<tr class="fieldDetails">
-              
-                  <td id = "fcode">${field.fieldCode || "N/A"}</td>
-                  <td>${field.fieldName}</td>
-                  <td>${field.fieldLocation.x},${field.fieldLocation.y}</td>
-                  <td>${field.extentSizeOfTheField}</td>
-                  <td><img src="data:image/jpeg;base64,${field.fieldImage1}" width="50" height="50"></td>
-                  <td><img src="data:image/jpeg;base64,${ field.fieldImage2 }" width="50" height="50"></td>
-                  <td> <button class="btn btn-success view-btn" data-id="${ field.fieldCode}" onclick="myFunction()><i class="bi bi-eye"></i>View</button></td>
-              </tr>`
+            `<tr class="fieldDetails">
+                <td id="fcode">${field.fieldCode || "N/A"}</td>
+                <td>${field.fieldName || "N/A"}</td>
+                <td>${field.fieldLocation ? `${field.fieldLocation.x}, ${field.fieldLocation.y}` : "N/A"}</td>
+                <td>${field.extentSizeOfTheField || "N/A"}</td>
+                <td>
+                  <img src="data:image/jpeg;base64,${field.fieldImage1 || ""}" 
+                       width="50" 
+                       height="50" 
+                       alt="Field Image 1">
+                </td>
+                <td>
+                  <img src="data:image/jpeg;base64,${field.fieldImage2 || ""}" 
+                       width="50" 
+                       height="50" 
+                       alt="Field Image 2">
+                </td>
+                <td>
+                  <button class="btn btn-success view-btn" 
+                          data-id="${field.fieldCode}" 
+                          onclick="myFunction('${field.fieldCode}')">
+                    <i class="bi bi-eye"></i> View
+                  </button>
+                </td>
+            </tr>`
           );
         });
-        callBack(fields)
+        // Pass the data to the callback
+        callBack(fields);
       } else {
         console.error("Failed");
         console.error("Status", http.status);
         console.error("Ready State", http.readyState);
-        console.error("Failed with Status:", http.status);
       }
     }
   };
+
   http.open(
     "GET",
     "http://localhost:8080/greenShadow/api/v1/field/getAllFields",
     true
   );
+
+  // Set the headers
+  for (const key in headers) {
+    if (headers.hasOwnProperty(key)) {
+      http.setRequestHeader(key, headers[key]);
+    }
+  }
+
   http.send();
 }
+
 
 
 export function updateField(updateFormData,fieldCode){

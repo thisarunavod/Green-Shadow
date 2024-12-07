@@ -145,10 +145,7 @@ $('#fieldImage2').on('change', function () {
     
     
     
-// Update Field
-updateFieldBtn.addEventListener('click', function () {
-    
-});
+
 
 tableBody.addEventListener('click', function (e) {
     if (e.target.classList.contains('view-btn')) {
